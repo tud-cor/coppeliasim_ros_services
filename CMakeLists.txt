@@ -1,5 +1,9 @@
 # This file is part of the ROS PLUGIN for V-REP
 # 
+# Copyright 2006-2016 Coppelia Robotics GmbH. All rights reserved. 
+# marc@coppeliarobotics.com
+# www.coppeliarobotics.com
+# 
 # Copyright 2017 Jonathan Cacace. All rights reserved. 
 # jonathan.cacace@gmail.com
 # 
@@ -33,17 +37,21 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp image_transport tf vrep_common
 )
 
+
 catkin_package(
                CATKIN_DEPENDS roscpp rosconsole std_msgs sensor_msgs cv_bridge image_transport tf brics_actuator roslib
                DEPENDS roscpp rosconsole std_msgs sensor_msgs cv_bridge image_transport tf brics_actuator roslib)
 
 include_directories(include ${catkin_INCLUDE_DIRS})
+include_directories(${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
 
 link_directories("/opt/ros/groovy/lib")
 link_directories("/opt/ros/indigo/lib")
 link_directories("/opt/ros/hydro/lib")
 link_directories("/opt/ros/kinetic/lib")
-include_directories(/opt/ros/kinetic/include/opencv-3.2.0-dev)
+
+find_package( OpenCV )
+include_directories(include ${catkin_INCLUDE_DIRS} /opt/ros/groovy/share/OpenCV)
 
 add_library(v_repExtRos src/vrep_plugin.cpp src/luaFunctionData.cpp src/luaFunctionDataItem.cpp src/v_repLib.cpp src/ROS_server.cpp src/vrepSubscriber.cpp)
 
