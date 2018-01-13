@@ -1,4 +1,4 @@
-# **seven\_dof\_arm\_gazebo**
+# **vrep\_plugin**
 
 Source code for _Chapter 4_ of the book [Master ROS for Robotic Programming, Second edition](https://www.packtpub.com/hardware-and-creative/mastering-ros-robotics-programming-second-edition) source code main repository.
 
