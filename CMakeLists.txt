@@ -37,7 +37,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp image_transport tf vrep_common
 )
 
-
+find_package( OpenCV REQUIRED )
 catkin_package(
                CATKIN_DEPENDS roscpp rosconsole std_msgs sensor_msgs cv_bridge image_transport tf brics_actuator roslib
                DEPENDS roscpp rosconsole std_msgs sensor_msgs cv_bridge image_transport tf brics_actuator roslib)
@@ -50,8 +50,8 @@ link_directories("/opt/ros/indigo/lib")
 link_directories("/opt/ros/hydro/lib")
 link_directories("/opt/ros/kinetic/lib")
 
-find_package( OpenCV )
-include_directories(include ${catkin_INCLUDE_DIRS} /opt/ros/groovy/share/OpenCV)
+#find_package( OpenCV )
+#include_directories(include ${catkin_INCLUDE_DIRS} /opt/ros/groovy/share/OpenCV)
 
 add_library(v_repExtRos src/vrep_plugin.cpp src/luaFunctionData.cpp src/luaFunctionDataItem.cpp src/v_repLib.cpp src/ROS_server.cpp src/vrepSubscriber.cpp)
 
@@ -69,4 +69,5 @@ target_link_libraries(v_repExtRos
     image_transport
     boost_system
    ${catkin_LIBRARIES}
+${OpenCV_LIBS}
 )
