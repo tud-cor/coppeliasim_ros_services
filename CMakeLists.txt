@@ -45,11 +45,7 @@ catkin_package(
 include_directories(include ${catkin_INCLUDE_DIRS})
 include_directories(${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
 
-# link_directories("/opt/ros/kinetic/lib")
 link_directories("/opt/ros/melodic/lib")
-
-#find_package( OpenCV )
-#include_directories(include ${catkin_INCLUDE_DIRS} /opt/ros/groovy/share/OpenCV)
 
 add_library(simExtRosServices
   include/simLib/simLib.cpp 
