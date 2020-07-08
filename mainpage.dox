@@ -2,7 +2,7 @@
 \mainpage
 \htmlinclude manifest.html
 
-\b vrep_plugin 
+\b vrep_plugin coppeliasim\_ros\_services
 
 <!-- 
 Provide an overview of your package.
