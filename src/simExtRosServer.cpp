@@ -28,12 +28,14 @@
 //
 // This file was automatically created for V-REP release V3.3.0 on February 19th 2016
 
+#include "simExtRosService/simExtRosServer.h"
+#include "simLib/simLib.h"
+#include "luaFunctionData.h"
+
 #include "sensor_msgs/distortion_models.h"
 #include <boost/algorithm/string/replace.hpp>
 #include <map>
-#include "../include/vrep_plugin/ROS_server.h"
-#include "../include/v_repLib.h"
-#include "../include/luaFunctionData.h"
+
 
 std::map<std::string,std::string> renamedFrames;
 
@@ -157,7 +159,7 @@ ros::ServiceServer ROS_server::simRosEraseFileServer;
 ros::ServiceServer ROS_server::simRosGetArrayParameterServer;
 ros::ServiceServer ROS_server::simRosGetBooleanParameterServer;
 ros::ServiceServer ROS_server::simRosGetCollisionHandleServer;
-ros::ServiceServer ROS_server::simRosGetCollectionHandleServer;
+// ros::ServiceServer ROS_server::simRosGetCollectionHandleServer;
 ros::ServiceServer ROS_server::simRosGetDialogInputServer;
 ros::ServiceServer ROS_server::simRosGetDialogResultServer;
 ros::ServiceServer ROS_server::simRosGetDistanceHandleServer;
@@ -238,7 +240,7 @@ ros::ServiceServer ROS_server::simRosSetJointStateServer;
 ros::ServiceServer ROS_server::simRosCreateDummyServer;
 ros::ServiceServer ROS_server::simRosGetAndClearStringSignalServer;
 ros::ServiceServer ROS_server::simRosGetObjectGroupDataServer;
-ros::ServiceServer ROS_server::simRosCallScriptFunctionServer;
+// ros::ServiceServer ROS_server::simRosCallScriptFunctionServer;
 
 bool ROS_server::initialize()
 {
@@ -825,12 +827,12 @@ bool ROS_server::launchPublisher(SPublisherData& pub,int queueSize)
 		return(true);
 	}
 
-	if (pub.cmdID==simros_strmcmd_receive_data_from_script_function)
-	{
-		pub.generalPublisher=node->advertise<vrep_common::ScriptFunctionCallData>(pub.topicName,queueSize);
-		pub.dependencyCnt++;
-		return(true);
-	}
+	// if (pub.cmdID==simros_strmcmd_receive_data_from_script_function)
+	// {
+	// 	pub.generalPublisher=node->advertise<vrep_common::ScriptFunctionCallData>(pub.topicName,queueSize);
+	// 	pub.dependencyCnt++;
+	// 	return(true);
+	// }
 
 	return(false); // we failed at launching the publisher
 }
@@ -1723,56 +1725,56 @@ void ROS_server::streamAllData()
 				}
 			}
 
-			if (publishers[pubI].cmdID==simros_strmcmd_receive_data_from_script_function)
-			{
-				int options=publishers[pubI].auxInt1;
-				std::string scriptDescription;
-				std::string functionName;
-				size_t p=publishers[pubI].auxStr.find('@');
-				if (p!=std::string::npos)
-				{
-					scriptDescription.assign(publishers[pubI].auxStr.begin()+p+1,publishers[pubI].auxStr.end());
-					functionName.assign(publishers[pubI].auxStr.begin(),publishers[pubI].auxStr.begin()+p);
-				}
-				else
-					functionName=publishers[pubI].auxStr;
+			// if (publishers[pubI].cmdID==simros_strmcmd_receive_data_from_script_function)
+			// {
+			// 	int options=publishers[pubI].auxInt1;
+			// 	std::string scriptDescription;
+			// 	std::string functionName;
+			// 	size_t p=publishers[pubI].auxStr.find('@');
+			// 	if (p!=std::string::npos)
+			// 	{
+			// 		scriptDescription.assign(publishers[pubI].auxStr.begin()+p+1,publishers[pubI].auxStr.end());
+			// 		functionName.assign(publishers[pubI].auxStr.begin(),publishers[pubI].auxStr.begin()+p);
+			// 	}
+			// 	else
+			// 		functionName=publishers[pubI].auxStr;
 
-				std::vector<int> inInt;
-				std::vector<float> inFloat;
-				std::vector<std::string> inString;
-				SLuaCallBack c;
-				CLuaFunctionData D;
-				D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(inInt));
-				D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(inFloat));
-				D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(inString));
-				D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(0,0));
-				const int outArgs[]={4,sim_lua_arg_int|sim_lua_arg_table,0,sim_lua_arg_float|sim_lua_arg_table,0,sim_lua_arg_string|sim_lua_arg_table,0,sim_lua_arg_charbuff,0};
-				D.writeDataToLua_luaFunctionCall(&c,outArgs);
-				removeThisPublisher=true; // set this to true if successful further down
-				if (simCallScriptFunction(options,publishers[pubI].auxStr.c_str(),&c,NULL)!=-1)
-				{ // success!
-					// Now check the return arguments:
-					if (D.readDataFromLua_luaFunctionCall(&c,outArgs,outArgs[0],functionName.c_str()))
-					{
-						removeThisPublisher=false;
-						std::vector<CLuaFunctionDataItem>* outData=D.getOutDataPtr_luaFunctionCall();
-						vrep_common::ScriptFunctionCallData fl;
-						fl.intData.data.assign(outData->at(0).intData.begin(),outData->at(0).intData.end());
-						fl.floatData.data.assign(outData->at(1).floatData.begin(),outData->at(1).floatData.end());
-						fl.stringData.data.clear();
-						for (size_t i=0;i<outData->at(2).stringData.size();i++)
-						{
-							fl.stringData.data+=outData->at(2).stringData[i].c_str();
-							fl.stringData.data+='\0';
-						}
-						fl.bufferData.data.assign(outData->at(3).stringData[0].begin(),outData->at(3).stringData[0].end());
+			// 	std::vector<int> inInt;
+			// 	std::vector<float> inFloat;
+			// 	std::vector<std::string> inString;
+			// 	SLuaCallBack c;
+			// 	CLuaFunctionData D;
+			// 	D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(inInt));
+			// 	D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(inFloat));
+			// 	D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(inString));
+			// 	D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(0,0));
+			// 	const int outArgs[]={4,sim_lua_arg_int|sim_lua_arg_table,0,sim_lua_arg_float|sim_lua_arg_table,0,sim_lua_arg_string|sim_lua_arg_table,0,sim_lua_arg_charbuff,0};
+			// 	D.writeDataToLua_luaFunctionCall(&c,outArgs);
+			// 	removeThisPublisher=true; // set this to true if successful further down
+			// 	if (simCallScriptFunction(options,publishers[pubI].auxStr.c_str(),&c,NULL)!=-1)
+			// 	{ // success!
+			// 		// Now check the return arguments:
+			// 		if (D.readDataFromLua_luaFunctionCall(&c,outArgs,outArgs[0],functionName.c_str()))
+			// 		{
+			// 			removeThisPublisher=false;
+			// 			std::vector<CLuaFunctionDataItem>* outData=D.getOutDataPtr_luaFunctionCall();
+			// 			vrep_common::ScriptFunctionCallData fl;
+			// 			fl.intData.data.assign(outData->at(0).intData.begin(),outData->at(0).intData.end());
+			// 			fl.floatData.data.assign(outData->at(1).floatData.begin(),outData->at(1).floatData.end());
+			// 			fl.stringData.data.clear();
+			// 			for (size_t i=0;i<outData->at(2).stringData.size();i++)
+			// 			{
+			// 				fl.stringData.data+=outData->at(2).stringData[i].c_str();
+			// 				fl.stringData.data+='\0';
+			// 			}
+			// 			fl.bufferData.data.assign(outData->at(3).stringData[0].begin(),outData->at(3).stringData[0].end());
 						
-						publishedSomething=true;
-						publishers[pubI].generalPublisher.publish(fl);
-					}
-				}
-				D.releaseBuffers_luaFunctionCall(&c);
-			}
+			// 			publishedSomething=true;
+			// 			publishers[pubI].generalPublisher.publish(fl);
+			// 		}
+			// 	}
+			// 	D.releaseBuffers_luaFunctionCall(&c);
+			// }
 
 			if (removeThisPublisher)
 			{
@@ -2258,7 +2260,7 @@ void ROS_server::enableAPIServices()
 	simRosGetArrayParameterServer = node->advertiseService("simRosGetArrayParameter",ROS_server::simRosGetArrayParameterService);
 	simRosGetBooleanParameterServer = node->advertiseService("simRosGetBooleanParameter",ROS_server::simRosGetBooleanParameterService);
 	simRosGetCollisionHandleServer = node->advertiseService("simRosGetCollisionHandle",ROS_server::simRosGetCollisionHandleService);
-	simRosGetCollectionHandleServer = node->advertiseService("simRosGetCollectionHandle",ROS_server::simRosGetCollectionHandleService);
+	// simRosGetCollectionHandleServer = node->advertiseService("simRosGetCollectionHandle",ROS_server::simRosGetCollectionHandleService);
 	simRosGetDialogInputServer = node->advertiseService("simRosGetDialogInput",ROS_server::simRosGetDialogInputService);
 	simRosGetDialogResultServer = node->advertiseService("simRosGetDialogResult",ROS_server::simRosGetDialogResultService);
 	simRosGetDistanceHandleServer = node->advertiseService("simRosGetDistanceHandle",ROS_server::simRosGetDistanceHandleService);
@@ -2339,7 +2341,7 @@ void ROS_server::enableAPIServices()
 	simRosCreateDummyServer = node->advertiseService("simRosCreateDummy",ROS_server::simRosCreateDummyService);
 	simRosGetAndClearStringSignalServer = node->advertiseService("simRosGetAndClearStringSignal",ROS_server::simRosGetAndClearStringSignalService);
 	simRosGetObjectGroupDataServer = node->advertiseService("simRosGetObjectGroupData",ROS_server::simRosGetObjectGroupDataService);
-	simRosCallScriptFunctionServer = node->advertiseService("simRosCallScriptFunction",ROS_server::simRosCallScriptFunctionService);
+	// simRosCallScriptFunctionServer = node->advertiseService("simRosCallScriptFunction",ROS_server::simRosCallScriptFunctionService);
 }
 
 void ROS_server::disableAPIServices()
@@ -2361,7 +2363,7 @@ void ROS_server::disableAPIServices()
 	simRosGetArrayParameterServer.shutdown();
 	simRosGetBooleanParameterServer.shutdown();
 	simRosGetCollisionHandleServer.shutdown();
-	simRosGetCollectionHandleServer.shutdown();
+	// simRosGetCollectionHandleServer.shutdown();
 	simRosGetDialogInputServer.shutdown();
 	simRosGetDialogResultServer.shutdown();
 	simRosGetDistanceHandleServer.shutdown();
@@ -2442,7 +2444,7 @@ void ROS_server::disableAPIServices()
 	simRosCreateDummyServer.shutdown();
 	simRosGetAndClearStringSignalServer.shutdown();
 	simRosGetObjectGroupDataServer.shutdown();
-	simRosCallScriptFunctionServer.shutdown();
+	// simRosCallScriptFunctionServer.shutdown();
 	_last50Errors.clear();
 }
 int ROS_server::_handleServiceErrors_start()
@@ -2669,13 +2671,13 @@ bool ROS_server::simRosGetCollisionHandleService(vrep_common::simRosGetCollision
 	return true;
 }
 
-bool ROS_server::simRosGetCollectionHandleService(vrep_common::simRosGetCollectionHandle::Request &req,vrep_common::simRosGetCollectionHandle::Response &res)
-{
-	int errorModeSaved=_handleServiceErrors_start();
-	res.handle=simGetCollectionHandle(req.collectionName.c_str());
-	_handleServiceErrors_end(errorModeSaved);
-	return true;
-}
+// bool ROS_server::simRosGetCollectionHandleService(vrep_common::simRosGetCollectionHandle::Request &req,vrep_common::simRosGetCollectionHandle::Response &res)
+// {
+// 	int errorModeSaved=_handleServiceErrors_start();
+// 	res.handle=simGetCollectionHandle(req.collectionName.c_str());
+// 	_handleServiceErrors_end(errorModeSaved);
+// 	return true;
+// }
 
 bool ROS_server::simRosGetDialogInputService(vrep_common::simRosGetDialogInput::Request &req,vrep_common::simRosGetDialogInput::Response &res)
 {
@@ -3752,42 +3754,42 @@ bool ROS_server::simRosGetObjectGroupDataService(vrep_common::simRosGetObjectGro
 	return true;
 }
 
-bool ROS_server::simRosCallScriptFunctionService(vrep_common::simRosCallScriptFunction::Request &req,vrep_common::simRosCallScriptFunction::Response &res)
-{
-	int errorModeSaved=_handleServiceErrors_start();
+// bool ROS_server::simRosCallScriptFunctionService(vrep_common::simRosCallScriptFunction::Request &req,vrep_common::simRosCallScriptFunction::Response &res)
+// {
+// 	int errorModeSaved=_handleServiceErrors_start();
 
-	SLuaCallBack c;
-	CLuaFunctionData D;
-	D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(req.inputInts));
-	D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(req.inputFloats));
-	D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(req.inputStrings));
-	D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(req.inputBuffer.c_str(),req.inputBuffer.size()));
-	const int outArgs[]={4,sim_lua_arg_int|sim_lua_arg_table,0,sim_lua_arg_float|sim_lua_arg_table,0,sim_lua_arg_string|sim_lua_arg_table,0,sim_lua_arg_charbuff,0};
-	D.writeDataToLua_luaFunctionCall(&c,outArgs);
-	res.result=-1;
+// 	SLuaCallBack c;
+// 	CLuaFunctionData D;
+// 	D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(req.inputInts));
+// 	D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(req.inputFloats));
+// 	D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(req.inputStrings));
+// 	D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(req.inputBuffer.c_str(),req.inputBuffer.size()));
+// 	const int outArgs[]={4,sim_lua_arg_int|sim_lua_arg_table,0,sim_lua_arg_float|sim_lua_arg_table,0,sim_lua_arg_string|sim_lua_arg_table,0,sim_lua_arg_charbuff,0};
+// 	D.writeDataToLua_luaFunctionCall(&c,outArgs);
+// 	res.result=-1;
 	
-	std::string functionName;
-	size_t p=req.functionNameAtObjectName.find('@');
-	if (p!=std::string::npos)
-		functionName.assign(req.functionNameAtObjectName.begin(),req.functionNameAtObjectName.begin()+p);
-	else
-		functionName=req.functionNameAtObjectName;
+// 	std::string functionName;
+// 	size_t p=req.functionNameAtObjectName.find('@');
+// 	if (p!=std::string::npos)
+// 		functionName.assign(req.functionNameAtObjectName.begin(),req.functionNameAtObjectName.begin()+p);
+// 	else
+// 		functionName=req.functionNameAtObjectName;
 
-	if (simCallScriptFunction(req.scriptHandleOrType,req.functionNameAtObjectName.c_str(),&c,NULL)!=-1)
-	{ // success!
-		// Now check the return arguments:
-		if (D.readDataFromLua_luaFunctionCall(&c,outArgs,outArgs[0],functionName.c_str()))
-		{
-			res.result=0;
-			std::vector<CLuaFunctionDataItem>* outData=D.getOutDataPtr_luaFunctionCall();
-			res.outputInts.assign(outData->at(0).intData.begin(),outData->at(0).intData.end());
-			res.outputFloats.assign(outData->at(1).floatData.begin(),outData->at(1).floatData.end());
-			res.outputStrings.assign(outData->at(2).stringData.begin(),outData->at(2).stringData.end());
-			res.outputBuffer=outData->at(3).stringData[0];
-		}
-	}
-	D.releaseBuffers_luaFunctionCall(&c);
+// 	if (simCallScriptFunction(req.scriptHandleOrType,req.functionNameAtObjectName.c_str(),&c,NULL)!=-1)
+// 	{ // success!
+// 		// Now check the return arguments:
+// 		if (D.readDataFromLua_luaFunctionCall(&c,outArgs,outArgs[0],functionName.c_str()))
+// 		{
+// 			res.result=0;
+// 			std::vector<CLuaFunctionDataItem>* outData=D.getOutDataPtr_luaFunctionCall();
+// 			res.outputInts.assign(outData->at(0).intData.begin(),outData->at(0).intData.end());
+// 			res.outputFloats.assign(outData->at(1).floatData.begin(),outData->at(1).floatData.end());
+// 			res.outputStrings.assign(outData->at(2).stringData.begin(),outData->at(2).stringData.end());
+// 			res.outputBuffer=outData->at(3).stringData[0];
+// 		}
+// 	}
+// 	D.releaseBuffers_luaFunctionCall(&c);
 	
-	_handleServiceErrors_end(errorModeSaved);
-	return true;
-}
+// 	_handleServiceErrors_end(errorModeSaved);
+// 	return true;
+// }

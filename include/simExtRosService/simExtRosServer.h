@@ -31,7 +31,7 @@
 #ifndef ROS_SERVER_H
 #define ROS_SERVER_H
 
-#include "vrepSubscriber.h"
+#include "simExtRosService/simExtRosSubscriber.h"
 
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
@@ -60,7 +60,7 @@
 #include "vrep_common/VisionSensorData.h"
 #include "vrep_common/VrepInfo.h"
 #include "vrep_common/ObjectGroupData.h"
-#include "vrep_common/ScriptFunctionCallData.h"
+// #include "vrep_common/ScriptFunctionCallData.h"
 
 // API services:
 #include "vrep_common/simRosAddStatusbarMessage.h"
@@ -80,7 +80,7 @@
 #include "vrep_common/simRosGetArrayParameter.h"
 #include "vrep_common/simRosGetBooleanParameter.h"
 #include "vrep_common/simRosGetCollisionHandle.h"
-#include "vrep_common/simRosGetCollectionHandle.h"
+// #include "vrep_common/simRosGetCollectionHandle.h"
 #include "vrep_common/simRosGetDialogInput.h"
 #include "vrep_common/simRosGetDialogResult.h"
 #include "vrep_common/simRosGetDistanceHandle.h"
@@ -162,7 +162,7 @@
 #include "vrep_common/simRosCreateDummy.h"
 #include "vrep_common/simRosGetAndClearStringSignal.h"
 #include "vrep_common/simRosGetObjectGroupData.h"
-#include "vrep_common/simRosCallScriptFunction.h"
+// #include "vrep_common/simRosCallScriptFunction.h"
 
 class SSpecificPublisherData 
 {
@@ -301,8 +301,8 @@ class ROS_server
 		static ros::ServiceServer simRosGetCollisionHandleServer;
 		static bool simRosGetCollisionHandleService(vrep_common::simRosGetCollisionHandle::Request &req,vrep_common::simRosGetCollisionHandle::Response &res);
 
-		static ros::ServiceServer simRosGetCollectionHandleServer;
-		static bool simRosGetCollectionHandleService(vrep_common::simRosGetCollectionHandle::Request &req,vrep_common::simRosGetCollectionHandle::Response &res);
+		// static ros::ServiceServer simRosGetCollectionHandleServer;
+		// static bool simRosGetCollectionHandleService(vrep_common::simRosGetCollectionHandle::Request &req,vrep_common::simRosGetCollectionHandle::Response &res);
 
 		static ros::ServiceServer simRosGetDialogInputServer;
 		static bool simRosGetDialogInputService(vrep_common::simRosGetDialogInput::Request &req,vrep_common::simRosGetDialogInput::Response &res);
@@ -547,8 +547,11 @@ class ROS_server
 		static ros::ServiceServer simRosGetObjectGroupDataServer;
 		static bool simRosGetObjectGroupDataService(vrep_common::simRosGetObjectGroupData::Request &req,vrep_common::simRosGetObjectGroupData::Response &res);
 
-		static ros::ServiceServer simRosCallScriptFunctionServer;
-		static bool simRosCallScriptFunctionService(vrep_common::simRosCallScriptFunction::Request &req,vrep_common::simRosCallScriptFunction::Response &res);
+		// static ros::ServiceServer simRosCallScriptFunctionServer;
+		// static bool simRosCallScriptFunctionService(vrep_common::simRosCallScriptFunction::Request &req,vrep_common::simRosCallScriptFunction::Response &res);
+
+
+
 };
 
 #endif
