@@ -104,7 +104,7 @@
 * Download this package in the _src_ folder of your ROS workspace
 * Compile the package
 * Copy the generated file "..devel/lib/libsimExtRosServices.so" to coppeliasim main folder 
-* Run ros master using Roscore
+* Run ros master using roscore
 * Start Coppeliasim 
 * List all available services 
 
