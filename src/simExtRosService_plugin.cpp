@@ -28,11 +28,11 @@
 //
 // This file was automatically created for V-REP release V3.3.0 on February 19th 2016
 
-#include "../include/v_repLib.h"
-#include "../include/luaFunctionData.h"
+#include "simLib/simLib.h"
+#include "luaFunctionData.h"
 #include <boost/lexical_cast.hpp>
-#include "../include/vrep_plugin/vrep_plugin.h"
-#include "../include/vrep_plugin/ROS_server.h"
+#include "simExtRosService/simExtRosService_plugin.h"
+#include "simExtRosService/simExtRosServer.h"
 
 #include "ros/ros.h"
 #include "std_msgs/Float32.h"
@@ -45,7 +45,8 @@
 #define CONCAT(x,y,z) x y z
 #define strConCat(x,y,z)	CONCAT(x,y,z)
 
-LIBRARY vrepLib; // the V-REP library that we will dynamically load and bind
+LIBRARY simLib; // the V-REP library that we will dynamically load and bind
+std::string simExtRosService_pluginName = "simExtRosService";
 
 // --------------------------------------------------------------------------------------
 // simExtROS_enablePublisher
@@ -281,52 +282,40 @@ void LUA_DISABLESUBSCRIBER_CALLBACK(SLuaCallBack* p)
 
 
 // This is the plugin start routine (called just once, just after the plugin was loaded):
-VREP_DLLEXPORT unsigned char v_repStart(void* reservedPointer,int reservedInt)
+SIM_DLLEXPORT unsigned char simStart(void* reservedPointer,int reservedInt)
 {
-	// Dynamically load and bind V-REP functions:
-	// ******************************************
-	// 1. Figure out this plugin's directory:
+	// Dynamically load and bind coppeliasim functions:
 	char curDirAndFile[1024];
 	getcwd(curDirAndFile, sizeof(curDirAndFile));
-
 	std::string currentDirAndPath(curDirAndFile);
-	// 2. Append the V-REP library's name:
+
+	// Append the coppeliasim library's name:
 	std::string temp(currentDirAndPath);
-	#ifdef _WIN32
-		temp+="\\v_rep.dll";
-	#elif defined (__linux)
-		temp+="/libv_rep.so";
-	#elif defined (__APPLE__)
-		temp+="/libv_rep.dylib";
-	#endif
+	temp+="/libcoppeliaSim.so";
 
-	// 3. Load the V-REP library:
-	vrepLib=loadVrepLibrary(temp.c_str());
-	if (vrepLib==NULL)
+	// Load the coppeliasim library:
+	simLib=loadSimLibrary(temp.c_str());
+	if (simLib==NULL)
 	{
-		std::cout << "Error, could not find or correctly load the V-REP library. Cannot start 'ROS' plugin.\n";
-		return(0); // Means error, V-REP will unload this plugin
+	    std::cout << "Error, could not find or correctly load the coppeliasim library. Cannot start '" << simExtRosService_pluginName << "' plugin.\n";
+		return(0); // Means error, coppeliasim will unload this plugin
 	}
-	if (getVrepProcAddresses(vrepLib)==0)
+	if (getSimProcAddresses(simLib)==0)
 	{
-		std::cout << "Error, could not find all required functions in the V-REP library. Cannot start 'ROS' plugin.\n";
-		unloadVrepLibrary(vrepLib);
-		return(0); // Means error, V-REP will unload this plugin
+	    std::cout << "Error, could not find all required functions in the coppeliasim library. Cannot start '" << simExtRosService_pluginName << "' plugin.\n";
+		unloadSimLibrary(simLib);
+		return(0); // Means error, coppeliasim will unload this plugin
 	}
-	// ******************************************
 
-	// Check the version of V-REP:
-	// ******************************************
-	int vrepVer;
-	simGetIntegerParameter(sim_intparam_program_version,&vrepVer);
-	if (vrepVer<20605) // if V-REP version is smaller than 2.06.04
+	// Check the version of coppeliasim:
+	int sim_ver;
+	simGetIntegerParameter(sim_intparam_program_version,&sim_ver);
+	if (sim_ver<30102) // if coppeliasim version is smaller than 3.01.02
 	{
-		std::cout << "Sorry, your V-REP copy is somewhat old. Cannot start 'ROS' plugin.\n";
-		unloadVrepLibrary(vrepLib);
-		return(0); // Means error, V-REP will unload this plugin
+	    std::cout << "Sorry, your coppeliasim copy is somewhat old. Cannot start '" << simExtRosService_pluginName << "' plugin.\n";
+		unloadSimLibrary(simLib);
+		return(0); // Means error, coppeliasim will unload this plugin
 	}
-	// ******************************************
-	
 
 	
 	// Initialize the ROS part:
@@ -434,14 +423,14 @@ VREP_DLLEXPORT unsigned char v_repStart(void* reservedPointer,int reservedInt)
 }
 
 // This is the plugin end routine (called just once, when V-REP is ending, i.e. releasing this plugin):
-VREP_DLLEXPORT void v_repEnd()
+SIM_DLLEXPORT void simEnd()
 {
 	ROS_server::shutDown();	// shutdown the ROS_server
-	unloadVrepLibrary(vrepLib); // release the library
+	unloadSimLibrary(simLib); // release the library
 }
 
 // This is the plugin messaging routine (i.e. V-REP calls this function very often, with various messages):
-VREP_DLLEXPORT void* v_repMessage(int message,int* auxiliaryData,void* customData,int* replyData)
+SIM_DLLEXPORT void* simMessage(int message,int* auxiliaryData,void* customData,int* replyData)
 { 
 	// This is called quite often. Just watch out for messages/events you want to handle
 	// Keep following 4 lines at the beginning and unchanged:
