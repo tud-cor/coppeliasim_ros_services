@@ -51,7 +51,7 @@ link_directories("/opt/ros/melodic/lib")
 #find_package( OpenCV )
 #include_directories(include ${catkin_INCLUDE_DIRS} /opt/ros/groovy/share/OpenCV)
 
-add_library(simExtRosService 
+add_library(simExtRosServices
   include/simLib/simLib.cpp 
   src/luaFunctionData.cpp 
   src/luaFunctionDataItem.cpp 
@@ -61,8 +61,8 @@ add_library(simExtRosService
   src/simExtRosService_plugin.cpp
   )
 
-add_dependencies(simExtRosService ${catkin_EXPORTED_TARGETS})
-target_link_libraries(simExtRosService
+add_dependencies(simExtRosServices ${catkin_EXPORTED_TARGETS})
+target_link_libraries(simExtRosServices
   pthread
   dl
   roslib
