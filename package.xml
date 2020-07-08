@@ -1,6 +1,6 @@
 <package>
-  <name>vrep_plugin</name>
-  <description>V-REP plugin for ROS interface working with ROS Kinetic</description>
+  <name>sim_ros_srv_server</name>
+  <description>coppeliasim plugin for ROS interface working with ROS melodic</description>
   <maintainer email="jonathan.cacace@gmail.com">Jonathan Cacace</maintainer>
   <version>3.3.0</version>
   <author>Marc</author>
