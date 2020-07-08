@@ -28,9 +28,9 @@
 //
 // This file was automatically created for V-REP release V3.3.0 on February 19th 2016
 
-#include "../include/vrep_plugin/vrepSubscriber.h"
-#include "../include/v_repLib.h"
-#include "../include/luaFunctionData.h"
+#include "simExtRosService/simExtRosSubscriber.h"
+#include "simLib/simLib.h"
+#include "luaFunctionData.h"
 
 CSubscriberData::CSubscriberData(ros::NodeHandle* node,const char* _topicName,int queueSize,int _streamCmd,int _auxInt1,int _auxInt2,const char* _auxString,int _callbackTag_before,int _callbackTag_after,image_transport::ImageTransport* images_streamer[1],int& imgStreamerCnt)
 {
@@ -260,11 +260,11 @@ CSubscriberData::CSubscriberData(ros::NodeHandle* node,const char* _topicName,in
 		isValid=true;
 	}
 
-	if (cmdID==simros_strmcmd_send_data_to_script_function)
-	{
-		generalSubscriber=node->subscribe(topicName,queueSize,&CSubscriberData::callScriptFunctionCallback,this);
-		isValid=true;
-	}
+	// if (cmdID==simros_strmcmd_send_data_to_script_function)
+	// {
+	// 	generalSubscriber=node->subscribe(topicName,queueSize,&CSubscriberData::callScriptFunctionCallback,this);
+	// 	isValid=true;
+	// }
 /*	
 	if (cmdID==simros_strmcmd_set_joint_trajectory)
 	{
@@ -712,49 +712,49 @@ void CSubscriberData::setJointStateCallback(const vrep_common::JointSetStateData
 	}
 }
 
-void CSubscriberData::callScriptFunctionCallback(const vrep_common::ScriptFunctionCallData::ConstPtr& data)
-{
-	if (_handleGeneralCallback_before())
-	{
-		int options=auxInt1;
+// void CSubscriberData::callScriptFunctionCallback(const vrep_common::ScriptFunctionCallData::ConstPtr& data)
+// {
+// 	if (_handleGeneralCallback_before())
+// 	{
+// 		int options=auxInt1;
 
-		int inStringCnt=0;
-		std::string inStrings(data->stringData.data.begin(),data->stringData.data.end());
+// 		int inStringCnt=0;
+// 		std::string inStrings(data->stringData.data.begin(),data->stringData.data.end());
 
-		if (inStrings.size()>0)
-		{
-			if (inStrings[inStrings.size()-1]!='\0')
-				inStrings+='\0';
-			for (size_t i=0;i<inStrings.size();i++)
-			{
-				if (inStrings[i]=='\0')
-					inStringCnt++;
-			}
-		}
-		std::vector<std::string> inString;
-		int off=0;
-		for (int i=0;i<inStringCnt;i++)
-		{
-			inString.push_back(inStrings.c_str()+off);
-			off+=strlen(inStrings.c_str()+off)+1;
-		}
+// 		if (inStrings.size()>0)
+// 		{
+// 			if (inStrings[inStrings.size()-1]!='\0')
+// 				inStrings+='\0';
+// 			for (size_t i=0;i<inStrings.size();i++)
+// 			{
+// 				if (inStrings[i]=='\0')
+// 					inStringCnt++;
+// 			}
+// 		}
+// 		std::vector<std::string> inString;
+// 		int off=0;
+// 		for (int i=0;i<inStringCnt;i++)
+// 		{
+// 			inString.push_back(inStrings.c_str()+off);
+// 			off+=strlen(inStrings.c_str()+off)+1;
+// 		}
 		
-		int inBufferSize=data->bufferData.data.size();
+// 		int inBufferSize=data->bufferData.data.size();
 
-		SLuaCallBack c;
-		CLuaFunctionData D;
-		D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(data->intData.data));
-		D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(data->floatData.data));
-		D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(inString));
-		D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(data->bufferData.data.c_str(),inBufferSize));
-		const int outArgs[]={4,sim_lua_arg_int|sim_lua_arg_table,0,sim_lua_arg_float|sim_lua_arg_table,0,sim_lua_arg_string|sim_lua_arg_table,0,sim_lua_arg_charbuff,0};
-		D.writeDataToLua_luaFunctionCall(&c,outArgs);
-		simCallScriptFunction(options,auxStr.c_str(),&c,NULL);
-		D.releaseBuffers_luaFunctionCall(&c);
+// 		SLuaCallBack c;
+// 		CLuaFunctionData D;
+// 		D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(data->intData.data));
+// 		D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(data->floatData.data));
+// 		D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(inString));
+// 		D.pushOutData_luaFunctionCall(CLuaFunctionDataItem(data->bufferData.data.c_str(),inBufferSize));
+// 		const int outArgs[]={4,sim_lua_arg_int|sim_lua_arg_table,0,sim_lua_arg_float|sim_lua_arg_table,0,sim_lua_arg_string|sim_lua_arg_table,0,sim_lua_arg_charbuff,0};
+// 		D.writeDataToLua_luaFunctionCall(&c,outArgs);
+// 		simCallScriptFunction(options,auxStr.c_str(),&c,NULL);
+// 		D.releaseBuffers_luaFunctionCall(&c);
 		
-		_handleGeneralCallback_after();
-	}
-}
+// 		_handleGeneralCallback_after();
+// 	}
+// }
 
 /*
 void CSubscriberData::setJointTrajectoryCallback(const trajectory_msgs::JointTrajectory::ConstPtr& data)

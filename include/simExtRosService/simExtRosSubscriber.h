@@ -55,7 +55,7 @@
 #include "vrep_common/VisionSensorData.h"
 #include "vrep_common/VrepInfo.h"
 #include "vrep_common/JointSetStateData.h"
-#include "vrep_common/ScriptFunctionCallData.h"
+// #include "vrep_common/ScriptFunctionCallData.h"
 //#include <trajectory_msgs/JointTrajectory.h>
 
 /*
@@ -135,7 +135,7 @@ public:
 	void setVisionSensorImageCallback(const sensor_msgs::Image::ConstPtr& image);
 	void setJoySensorCallback(const sensor_msgs::Joy::ConstPtr& joyPacket); 
 	void setJointStateCallback(const vrep_common::JointSetStateData::ConstPtr& data);
-	void callScriptFunctionCallback(const vrep_common::ScriptFunctionCallData::ConstPtr& data);
+	// void callScriptFunctionCallback(const vrep_common::ScriptFunctionCallData::ConstPtr& data);
 //	void setJointTrajectoryCallback(const trajectory_msgs::JointTrajectory::ConstPtr& data);
 };
 
