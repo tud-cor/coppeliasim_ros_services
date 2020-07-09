@@ -30,7 +30,7 @@
 
 #include "simExtRosService/simExtRosServer.h"
 #include "simLib/simLib.h"
-#include "luaFunctionData.h"
+#include "simLib/luaFunctionData.h"
 
 #include "sensor_msgs/distortion_models.h"
 #include <boost/algorithm/string/replace.hpp>
@@ -53,6 +53,7 @@ bool ROS_server::_waitForTrigger=true;
 
 std::vector<SPublisherData> ROS_server::publishers;
 ros::Publisher ROS_server::infoPublisher; // special publisher that is active also when simulation is not running!
+ros::Publisher ROS_server::clockPublisher; 
 
 std::vector<CSubscriberData*> ROS_server::subscribers;
 int ROS_server::lastSubscriberID=-1;
@@ -246,23 +247,25 @@ bool ROS_server::initialize()
 {
 	int argc = 0;
 	char** argv = NULL;
-	ros::init(argc,argv,"vrep");
+	ros::init(argc,argv,"coppeliasim_ros_services");
 
 	if(!ros::master::check())
 		return(false);
-	
+	ROS_DEBUG_ONCE("coppeliasim_ros_services plugin loadded successfully: waiting for robot_description! ");
+
 	node=new ros::NodeHandle("~");
     tf_broadcaster=new tf::TransformBroadcaster();
 
 	enableAPIServices();
 	infoPublisher=node->advertise<vrep_common::VrepInfo>("info",1); // special case! This is the only publisher always active!
-
+	clockPublisher=node->advertise<rosgraph_msgs::Clock>("/clock",1); 
 	return(true);
 }
 
 void ROS_server::shutDown()
 {
 	infoPublisher.shutdown(); // special case! This is the only publisher always active!
+	clockPublisher.shutdown(); // special case! This is the only publisher always active!
 	disableAPIServices();
 	ros::shutdown();
 }
@@ -886,6 +889,13 @@ void ROS_server::streamAllData()
 	inf.headerInfo.seq=_simulationFrameID;
 	inf.headerInfo.stamp=ros::Time::now();
 	infoPublisher.publish(inf);
+
+	// publish simulation time throught clock topic
+  	// double sim_time = simGetSimulationTime();
+    rosgraph_msgs::Clock clk_msg;
+    clk_msg.clock = ros::Time( simGetSimulationTime() );
+    clockPublisher.publish( clk_msg);
+
 
 	// 2. Now handle all "regular" streams (those that can only run while simulation is running):
 	for (int pubI=0;pubI<int(publishers.size());pubI++)

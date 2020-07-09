@@ -34,6 +34,7 @@
 #include "simExtRosService/simExtRosSubscriber.h"
 
 #include <ros/ros.h>
+#include <rosgraph_msgs/Clock.h>
 #include <image_transport/image_transport.h>
 
 #include <tf/tf.h>
@@ -231,6 +232,7 @@ class ROS_server
 
 		static std::vector<SPublisherData> publishers;
 		static ros::Publisher infoPublisher; // special publisher that is active also when simulation is not running!
+		static ros::Publisher clockPublisher; // special publisher that is active also when simulation is not running!
 
 		static void removeAllSubscribers();
 		static std::vector<CSubscriberData*> subscribers;
