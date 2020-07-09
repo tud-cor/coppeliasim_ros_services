@@ -31,7 +31,7 @@
 # This file was automatically created for V-REP release V3.3.0 on February 19th 2016
 
 cmake_minimum_required(VERSION 2.8.3)
-project(sim_ros_srv_server)
+project(coppeliasim_ros_services)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp image_transport tf vrep_common
@@ -39,8 +39,8 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package( OpenCV REQUIRED )
 catkin_package(
-               CATKIN_DEPENDS roscpp rosconsole std_msgs sensor_msgs cv_bridge image_transport tf brics_actuator roslib
-               DEPENDS roscpp rosconsole std_msgs sensor_msgs cv_bridge image_transport tf brics_actuator roslib)
+               CATKIN_DEPENDS roscpp rosconsole std_msgs rosgraph_msgs sensor_msgs cv_bridge image_transport tf brics_actuator roslib
+               DEPENDS roscpp rosconsole std_msgs rosgraph_msgs sensor_msgs cv_bridge image_transport tf brics_actuator roslib)
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 include_directories(${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
@@ -49,8 +49,8 @@ link_directories("/opt/ros/melodic/lib")
 
 add_library(simExtRosServices
   include/simLib/simLib.cpp 
-  src/luaFunctionData.cpp 
-  src/luaFunctionDataItem.cpp 
+  include/simLib/luaFunctionData.cpp 
+  include/simLib/luaFunctionDataItem.cpp 
 
   src/simExtRosServer.cpp 
   src/simExtRosSubscriber.cpp
