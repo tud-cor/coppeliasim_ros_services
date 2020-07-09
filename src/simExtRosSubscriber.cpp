@@ -30,7 +30,7 @@
 
 #include "simExtRosService/simExtRosSubscriber.h"
 #include "simLib/simLib.h"
-#include "luaFunctionData.h"
+#include "simLib/luaFunctionData.h"
 
 CSubscriberData::CSubscriberData(ros::NodeHandle* node,const char* _topicName,int queueSize,int _streamCmd,int _auxInt1,int _auxInt2,const char* _auxString,int _callbackTag_before,int _callbackTag_after,image_transport::ImageTransport* images_streamer[1],int& imgStreamerCnt)
 {
