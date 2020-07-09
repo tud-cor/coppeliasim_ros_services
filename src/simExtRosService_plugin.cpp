@@ -29,7 +29,7 @@
 // This file was automatically created for V-REP release V3.3.0 on February 19th 2016
 
 #include "simLib/simLib.h"
-#include "luaFunctionData.h"
+#include "simLib/luaFunctionData.h"
 #include <boost/lexical_cast.hpp>
 #include "simExtRosService/simExtRosService_plugin.h"
 #include "simExtRosService/simExtRosServer.h"
@@ -324,6 +324,8 @@ SIM_DLLEXPORT unsigned char simStart(void* reservedPointer,int reservedInt)
 		std::cout << "ROS master is not running. Cannot start 'ROS' plugin.\n";
 		return (0); //If the master is not running then the plugin is not loaded.
 	}
+	
+	    
 	
 	std::vector<int> inArgs;
 	// Register the new Lua commands:
