@@ -190,6 +190,7 @@ ros::ServiceServer ROS_server::simRosGetUIHandleServer;
 ros::ServiceServer ROS_server::simRosGetUISliderServer;
 ros::ServiceServer ROS_server::simRosGetVisionSensorDepthBufferServer;
 ros::ServiceServer ROS_server::simRosGetVisionSensorImageServer;
+ros::ServiceServer ROS_server::simRosLoadModuleServer;
 ros::ServiceServer ROS_server::simRosLoadModelServer;
 ros::ServiceServer ROS_server::simRosLoadSceneServer;
 ros::ServiceServer ROS_server::simRosLoadUIServer;
@@ -2300,6 +2301,7 @@ void ROS_server::enableAPIServices()
 	simRosGetUISliderServer = node->advertiseService("simRosGetUISlider",ROS_server::simRosGetUISliderService);
 	simRosGetVisionSensorDepthBufferServer = node->advertiseService("simRosGetVisionSensorDepthBuffer",ROS_server::simRosGetVisionSensorDepthBufferService);
 	simRosGetVisionSensorImageServer = node->advertiseService("simRosGetVisionSensorImage",ROS_server::simRosGetVisionSensorImageService);
+	simRosLoadModuleServer = node->advertiseService("simRosLoadModule",ROS_server::simRosLoadModuleService);
 	simRosLoadModelServer = node->advertiseService("simRosLoadModel",ROS_server::simRosLoadModelService);
 	simRosLoadSceneServer = node->advertiseService("simRosLoadScene",ROS_server::simRosLoadSceneService);
 	simRosLoadUIServer = node->advertiseService("simRosLoadUI",ROS_server::simRosLoadUIService);
@@ -2403,6 +2405,7 @@ void ROS_server::disableAPIServices()
 	simRosGetUISliderServer.shutdown();
 	simRosGetVisionSensorDepthBufferServer.shutdown();
 	simRosGetVisionSensorImageServer.shutdown();
+	simRosLoadModuleServer.shutdown();
 	simRosLoadModelServer.shutdown();
 	simRosLoadSceneServer.shutdown();
 	simRosLoadUIServer.shutdown();
@@ -3133,6 +3136,14 @@ bool ROS_server::simRosGetVisionSensorImageService(vrep_common::simRosGetVisionS
 	}
 	else
 		res.result=-1;
+	_handleServiceErrors_end(errorModeSaved);
+	return true;
+}
+
+bool ROS_server::simRosLoadModuleService(vrep_common::simRosLoadModule::Request &req,vrep_common::simRosLoadModule::Response &res)
+{
+	int errorModeSaved=_handleServiceErrors_start();
+	res.result=simLoadModule(req.fileName.c_str(), req.pluginName.c_str());
 	_handleServiceErrors_end(errorModeSaved);
 	return true;
 }

@@ -111,6 +111,7 @@
 #include "vrep_common/simRosGetUISlider.h"
 #include "vrep_common/simRosGetVisionSensorDepthBuffer.h"
 #include "vrep_common/simRosGetVisionSensorImage.h"
+#include "vrep_common/simRosLoadModule.h"
 #include "vrep_common/simRosLoadModel.h"
 #include "vrep_common/simRosLoadScene.h"
 #include "vrep_common/simRosLoadUI.h"
@@ -551,6 +552,9 @@ class ROS_server
 
 		// static ros::ServiceServer simRosCallScriptFunctionServer;
 		// static bool simRosCallScriptFunctionService(vrep_common::simRosCallScriptFunction::Request &req,vrep_common::simRosCallScriptFunction::Response &res);
+
+		static ros::ServiceServer simRosLoadModuleServer;
+		static bool simRosLoadModuleService(vrep_common::simRosLoadModule::Request &req,vrep_common::simRosLoadModule::Response &res);
 
 
 
