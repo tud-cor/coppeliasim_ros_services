@@ -99,6 +99,7 @@
 * Synchronous
 * ynchronousTrigger
 * TransferFile
+* LoadModule (load plugins - e.g. roscontrol plugin)
 
 ### **Sample of Usage** 
 * Download this package in the _src_ folder of your ROS workspace
