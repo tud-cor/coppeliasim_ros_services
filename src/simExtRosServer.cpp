@@ -191,6 +191,7 @@ ros::ServiceServer ROS_server::simRosGetUISliderServer;
 ros::ServiceServer ROS_server::simRosGetVisionSensorDepthBufferServer;
 ros::ServiceServer ROS_server::simRosGetVisionSensorImageServer;
 ros::ServiceServer ROS_server::simRosLoadModuleServer;
+ros::ServiceServer ROS_server::simRosUnloadModuleServer;
 ros::ServiceServer ROS_server::simRosLoadModelServer;
 ros::ServiceServer ROS_server::simRosLoadSceneServer;
 ros::ServiceServer ROS_server::simRosLoadUIServer;
@@ -2302,6 +2303,7 @@ void ROS_server::enableAPIServices()
 	simRosGetVisionSensorDepthBufferServer = node->advertiseService("simRosGetVisionSensorDepthBuffer",ROS_server::simRosGetVisionSensorDepthBufferService);
 	simRosGetVisionSensorImageServer = node->advertiseService("simRosGetVisionSensorImage",ROS_server::simRosGetVisionSensorImageService);
 	simRosLoadModuleServer = node->advertiseService("simRosLoadModule",ROS_server::simRosLoadModuleService);
+	simRosUnloadModuleServer = node->advertiseService("simRosUnloadModule",ROS_server::simRosUnloadModuleService);
 	simRosLoadModelServer = node->advertiseService("simRosLoadModel",ROS_server::simRosLoadModelService);
 	simRosLoadSceneServer = node->advertiseService("simRosLoadScene",ROS_server::simRosLoadSceneService);
 	simRosLoadUIServer = node->advertiseService("simRosLoadUI",ROS_server::simRosLoadUIService);
@@ -2406,6 +2408,7 @@ void ROS_server::disableAPIServices()
 	simRosGetVisionSensorDepthBufferServer.shutdown();
 	simRosGetVisionSensorImageServer.shutdown();
 	simRosLoadModuleServer.shutdown();
+	simRosUnloadModuleServer.shutdown();
 	simRosLoadModelServer.shutdown();
 	simRosLoadSceneServer.shutdown();
 	simRosLoadUIServer.shutdown();
@@ -3144,6 +3147,14 @@ bool ROS_server::simRosLoadModuleService(vrep_common::simRosLoadModule::Request 
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simLoadModule(req.fileName.c_str(), req.pluginName.c_str());
+	_handleServiceErrors_end(errorModeSaved);
+	return true;
+}
+
+bool ROS_server::simRosUnloadModuleService(vrep_common::simRosUnloadModule::Request &req,vrep_common::simRosUnloadModule::Response &res)
+{
+	int errorModeSaved=_handleServiceErrors_start();
+	res.result=simUnloadModule(req.pluginHandle);
 	_handleServiceErrors_end(errorModeSaved);
 	return true;
 }
