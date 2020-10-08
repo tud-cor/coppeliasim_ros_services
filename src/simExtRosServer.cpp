@@ -26,7 +26,7 @@
 // along with the ROS PLUGIN.  If not, see <http://www.gnu.org/licenses/>.
 // -------------------------------------------------------------------
 //
-// This file was automatically created for V-REP release V3.3.0 on February 19th 2016
+// This file was updated for Coppeliasim release V4.0.0 
 
 #include "simExtRosService/simExtRosServer.h"
 #include "simLib/simLib.h"
@@ -259,7 +259,7 @@ bool ROS_server::initialize()
     tf_broadcaster=new tf::TransformBroadcaster();
 
 	enableAPIServices();
-	infoPublisher=node->advertise<vrep_common::VrepInfo>("info",1); // special case! This is the only publisher always active!
+	infoPublisher=node->advertise<coppeliasim_msgs_srvs::VrepInfo>("info",1); // special case! This is the only publisher always active!
 	clockPublisher=node->advertise<rosgraph_msgs::Clock>("/clock",1); 
 	return(true);
 }
@@ -618,7 +618,7 @@ bool ROS_server::launchPublisher(SPublisherData& pub,int queueSize)
 	
 	if (pub.cmdID==simros_strmcmd_get_object_group_data)
 	{
-		pub.generalPublisher=node->advertise<vrep_common::ObjectGroupData>(pub.topicName,queueSize);
+		pub.generalPublisher=node->advertise<coppeliasim_msgs_srvs::ObjectGroupData>(pub.topicName,queueSize);
 		pub.dependencyCnt++;
 		return(true); // we remove it later if invalid!
 	}
@@ -727,7 +727,7 @@ bool ROS_server::launchPublisher(SPublisherData& pub,int queueSize)
 	{
 		if (simGetObjectType(pub.auxInt1)!=sim_object_visionsensor_type)
 			return(false); // invalid data!
-		pub.generalPublisher=node->advertise<vrep_common::VisionSensorDepthBuff>(pub.topicName,queueSize);
+		pub.generalPublisher=node->advertise<coppeliasim_msgs_srvs::VisionSensorDepthBuff>(pub.topicName,queueSize);
 		pub.dependencyCnt++;
 		return(true);
 	}
@@ -793,7 +793,7 @@ bool ROS_server::launchPublisher(SPublisherData& pub,int queueSize)
 	{
 		if (simReadForceSensor(pub.auxInt1,NULL,NULL)==-1)
 			return(false); // invalid data!
-		pub.generalPublisher=node->advertise<vrep_common::ForceSensorData>(pub.topicName,queueSize);
+		pub.generalPublisher=node->advertise<coppeliasim_msgs_srvs::ForceSensorData>(pub.topicName,queueSize);
 		pub.dependencyCnt++;
 		return(true);
 	}
@@ -802,7 +802,7 @@ bool ROS_server::launchPublisher(SPublisherData& pub,int queueSize)
 	{
 		if (simGetObjectType(pub.auxInt1)!=sim_object_proximitysensor_type)
 			return(false); // invalid data!
-		pub.generalPublisher=node->advertise<vrep_common::ProximitySensorData>(pub.topicName,queueSize);
+		pub.generalPublisher=node->advertise<coppeliasim_msgs_srvs::ProximitySensorData>(pub.topicName,queueSize);
 		pub.dependencyCnt++;
 		return(true);
 	}
@@ -811,7 +811,7 @@ bool ROS_server::launchPublisher(SPublisherData& pub,int queueSize)
 	{
 		if (simGetObjectType(pub.auxInt1)!=sim_object_visionsensor_type)
 			return(false); // invalid data!
-		pub.generalPublisher=node->advertise<vrep_common::VisionSensorData>(pub.topicName,queueSize);
+		pub.generalPublisher=node->advertise<coppeliasim_msgs_srvs::VisionSensorData>(pub.topicName,queueSize);
 		pub.dependencyCnt++;
 		return(true);
 	}
@@ -834,7 +834,7 @@ bool ROS_server::launchPublisher(SPublisherData& pub,int queueSize)
 
 	// if (pub.cmdID==simros_strmcmd_receive_data_from_script_function)
 	// {
-	// 	pub.generalPublisher=node->advertise<vrep_common::ScriptFunctionCallData>(pub.topicName,queueSize);
+	// 	pub.generalPublisher=node->advertise<coppeliasim_msgs_srvs::ScriptFunctionCallData>(pub.topicName,queueSize);
 	// 	pub.dependencyCnt++;
 	// 	return(true);
 	// }
@@ -872,7 +872,7 @@ void ROS_server::shutDownPublisher(SPublisherData& pub)
 void ROS_server::streamAllData()
 {
 	// 1. First we stream the data that is always streamed (also when simulation is not running): the info
-	vrep_common::VrepInfo inf;
+	coppeliasim_msgs_srvs::VrepInfo inf;
 	int simState=simGetSimulationState();
 	inf.simulatorState.data=0;
 	if (simState!=sim_simulation_stopped)
@@ -1295,7 +1295,7 @@ void ROS_server::streamAllData()
 				std::vector<std::string> stringData;
 				if (getObjectGroupData(publishers[pubI].auxInt1,publishers[pubI].auxInt2,handles,intData,floatData,stringData))
 				{
-					vrep_common::ObjectGroupData fl;
+					coppeliasim_msgs_srvs::ObjectGroupData fl;
 					for (int i=0;i<int(handles.size());i++)
 						fl.handles.data.push_back(handles[i]);
 					for (int i=0;i<int(intData.size());i++)
@@ -1492,7 +1492,7 @@ void ROS_server::streamAllData()
 					float* buff=simGetVisionSensorDepthBuffer(publishers[pubI].auxInt1);
 					if (buff!=NULL)
 					{
-						vrep_common::VisionSensorDepthBuff fl;
+						coppeliasim_msgs_srvs::VisionSensorDepthBuff fl;
 						fl.x.data=resol[0];
 						fl.y.data=resol[1];
 						for (int j=0;j<resol[0]*resol[1];j++)
@@ -1544,7 +1544,7 @@ void ROS_server::streamAllData()
 				int r=simReadForceSensor(publishers[pubI].auxInt1,force,torque);
 				if (r!=-1)
 				{
-					vrep_common::ForceSensorData fl;
+					coppeliasim_msgs_srvs::ForceSensorData fl;
 					fl.sensorState.data=r;
 					fl.force.x=(double)force[0];
 					fl.force.y=(double)force[1];
@@ -1569,7 +1569,7 @@ void ROS_server::streamAllData()
 				{
 					if (r>0)
 					{ // we publish only of we detected something
-						vrep_common::ProximitySensorData fl;
+						coppeliasim_msgs_srvs::ProximitySensorData fl;
 						fl.detectedPoint.x=detectedPt[0];
 						fl.detectedPoint.y=detectedPt[1];
 						fl.detectedPoint.z=detectedPt[2];
@@ -1595,7 +1595,7 @@ void ROS_server::streamAllData()
 				int r=simReadVisionSensor(publishers[pubI].auxInt1,&auxValues,&auxValuesCount);
 				if (r>=0)
 				{
-					vrep_common::VisionSensorData fl;
+					coppeliasim_msgs_srvs::VisionSensorData fl;
 					int packetCnt=auxValuesCount[0];
 					fl.packetSizes.data.resize(packetCnt);
 					fl.packetData.data.clear();
@@ -1770,7 +1770,7 @@ void ROS_server::streamAllData()
 			// 		{
 			// 			removeThisPublisher=false;
 			// 			std::vector<CLuaFunctionDataItem>* outData=D.getOutDataPtr_luaFunctionCall();
-			// 			vrep_common::ScriptFunctionCallData fl;
+			// 			coppeliasim_msgs_srvs::ScriptFunctionCallData fl;
 			// 			fl.intData.data.assign(outData->at(0).intData.begin(),outData->at(0).intData.end());
 			// 			fl.floatData.data.assign(outData->at(1).floatData.begin(),outData->at(1).floatData.end());
 			// 			fl.stringData.data.clear();
@@ -2484,7 +2484,7 @@ void ROS_server::_handleServiceErrors_end(int errorReportMode)
 	simSetIntegerParameter(sim_intparam_error_report_mode,errorReportMode);
 }
 
-bool ROS_server::simRosAddStatusbarMessageService(vrep_common::simRosAddStatusbarMessage::Request &req,vrep_common::simRosAddStatusbarMessage::Response &res)
+bool ROS_server::simRosAddStatusbarMessageService(coppeliasim_msgs_srvs::simRosAddStatusbarMessage::Request &req,coppeliasim_msgs_srvs::simRosAddStatusbarMessage::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simAddStatusbarMessage(req.message.c_str());
@@ -2492,7 +2492,7 @@ bool ROS_server::simRosAddStatusbarMessageService(vrep_common::simRosAddStatusba
 	return true;
 }
 
-bool ROS_server::simRosAuxiliaryConsoleCloseService(vrep_common::simRosAuxiliaryConsoleClose::Request &req,vrep_common::simRosAuxiliaryConsoleClose::Response &res)
+bool ROS_server::simRosAuxiliaryConsoleCloseService(coppeliasim_msgs_srvs::simRosAuxiliaryConsoleClose::Request &req,coppeliasim_msgs_srvs::simRosAuxiliaryConsoleClose::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simAuxiliaryConsoleClose(req.consoleHandle);
@@ -2500,7 +2500,7 @@ bool ROS_server::simRosAuxiliaryConsoleCloseService(vrep_common::simRosAuxiliary
 	return true;
 }
 
-bool ROS_server::simRosAuxiliaryConsoleOpenService(vrep_common::simRosAuxiliaryConsoleOpen::Request &req,vrep_common::simRosAuxiliaryConsoleOpen::Response &res)
+bool ROS_server::simRosAuxiliaryConsoleOpenService(coppeliasim_msgs_srvs::simRosAuxiliaryConsoleOpen::Request &req,coppeliasim_msgs_srvs::simRosAuxiliaryConsoleOpen::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	int* pos=NULL;
@@ -2520,7 +2520,7 @@ bool ROS_server::simRosAuxiliaryConsoleOpenService(vrep_common::simRosAuxiliaryC
 	return true;
 }
 
-bool ROS_server::simRosAuxiliaryConsolePrintService(vrep_common::simRosAuxiliaryConsolePrint::Request &req,vrep_common::simRosAuxiliaryConsolePrint::Response &res)
+bool ROS_server::simRosAuxiliaryConsolePrintService(coppeliasim_msgs_srvs::simRosAuxiliaryConsolePrint::Request &req,coppeliasim_msgs_srvs::simRosAuxiliaryConsolePrint::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	if (req.text.length()==0)
@@ -2531,7 +2531,7 @@ bool ROS_server::simRosAuxiliaryConsolePrintService(vrep_common::simRosAuxiliary
 	return true;
 }
 
-bool ROS_server::simRosAuxiliaryConsoleShowService(vrep_common::simRosAuxiliaryConsoleShow::Request &req,vrep_common::simRosAuxiliaryConsoleShow::Response &res)
+bool ROS_server::simRosAuxiliaryConsoleShowService(coppeliasim_msgs_srvs::simRosAuxiliaryConsoleShow::Request &req,coppeliasim_msgs_srvs::simRosAuxiliaryConsoleShow::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simAuxiliaryConsoleShow(req.consoleHandle,req.showState);
@@ -2539,7 +2539,7 @@ bool ROS_server::simRosAuxiliaryConsoleShowService(vrep_common::simRosAuxiliaryC
 	return true;
 }
 
-bool ROS_server::simRosBreakForceSensorService(vrep_common::simRosBreakForceSensor::Request &req,vrep_common::simRosBreakForceSensor::Response &res)
+bool ROS_server::simRosBreakForceSensorService(coppeliasim_msgs_srvs::simRosBreakForceSensor::Request &req,coppeliasim_msgs_srvs::simRosBreakForceSensor::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simBreakForceSensor(req.objectHandle);
@@ -2547,7 +2547,7 @@ bool ROS_server::simRosBreakForceSensorService(vrep_common::simRosBreakForceSens
 	return true;
 }
 
-bool ROS_server::simRosClearFloatSignalService(vrep_common::simRosClearFloatSignal::Request &req,vrep_common::simRosClearFloatSignal::Response &res)
+bool ROS_server::simRosClearFloatSignalService(coppeliasim_msgs_srvs::simRosClearFloatSignal::Request &req,coppeliasim_msgs_srvs::simRosClearFloatSignal::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	if (req.signalName.length()==0)
@@ -2558,7 +2558,7 @@ bool ROS_server::simRosClearFloatSignalService(vrep_common::simRosClearFloatSign
 	return true;
 }
 
-bool ROS_server::simRosClearIntegerSignalService(vrep_common::simRosClearIntegerSignal::Request &req,vrep_common::simRosClearIntegerSignal::Response &res)
+bool ROS_server::simRosClearIntegerSignalService(coppeliasim_msgs_srvs::simRosClearIntegerSignal::Request &req,coppeliasim_msgs_srvs::simRosClearIntegerSignal::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	if (req.signalName.length()==0)
@@ -2569,7 +2569,7 @@ bool ROS_server::simRosClearIntegerSignalService(vrep_common::simRosClearInteger
 	return true;
 }
 
-bool ROS_server::simRosClearStringSignalService(vrep_common::simRosClearStringSignal::Request &req,vrep_common::simRosClearStringSignal::Response &res)
+bool ROS_server::simRosClearStringSignalService(coppeliasim_msgs_srvs::simRosClearStringSignal::Request &req,coppeliasim_msgs_srvs::simRosClearStringSignal::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	if (req.signalName.length()==0)
@@ -2580,7 +2580,7 @@ bool ROS_server::simRosClearStringSignalService(vrep_common::simRosClearStringSi
 	return true;
 }
 
-bool ROS_server::simRosCloseSceneService(vrep_common::simRosCloseScene::Request &req,vrep_common::simRosCloseScene::Response &res)
+bool ROS_server::simRosCloseSceneService(coppeliasim_msgs_srvs::simRosCloseScene::Request &req,coppeliasim_msgs_srvs::simRosCloseScene::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simCloseScene();
@@ -2588,7 +2588,7 @@ bool ROS_server::simRosCloseSceneService(vrep_common::simRosCloseScene::Request 
 	return true;
 }
 
-bool ROS_server::simRosCopyPasteObjectsService(vrep_common::simRosCopyPasteObjects::Request &req,vrep_common::simRosCopyPasteObjects::Response &res)
+bool ROS_server::simRosCopyPasteObjectsService(coppeliasim_msgs_srvs::simRosCopyPasteObjects::Request &req,coppeliasim_msgs_srvs::simRosCopyPasteObjects::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	// 1. Save current selection state:
@@ -2623,7 +2623,7 @@ bool ROS_server::simRosCopyPasteObjectsService(vrep_common::simRosCopyPasteObjec
 	return true;
 }
 
-bool ROS_server::simRosDisplayDialogService(vrep_common::simRosDisplayDialog::Request &req,vrep_common::simRosDisplayDialog::Response &res)
+bool ROS_server::simRosDisplayDialogService(coppeliasim_msgs_srvs::simRosDisplayDialog::Request &req,coppeliasim_msgs_srvs::simRosDisplayDialog::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	float* col1=NULL;
@@ -2640,7 +2640,7 @@ bool ROS_server::simRosDisplayDialogService(vrep_common::simRosDisplayDialog::Re
 	return true;
 }
 
-bool ROS_server::simRosEndDialogService(vrep_common::simRosEndDialog::Request &req,vrep_common::simRosEndDialog::Response &res)
+bool ROS_server::simRosEndDialogService(coppeliasim_msgs_srvs::simRosEndDialog::Request &req,coppeliasim_msgs_srvs::simRosEndDialog::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simEndDialog(req.dialogHandle);
@@ -2648,7 +2648,7 @@ bool ROS_server::simRosEndDialogService(vrep_common::simRosEndDialog::Request &r
 	return true;
 }
 
-bool ROS_server::simRosEraseFileService(vrep_common::simRosEraseFile::Request &req,vrep_common::simRosEraseFile::Response &res)
+bool ROS_server::simRosEraseFileService(coppeliasim_msgs_srvs::simRosEraseFile::Request &req,coppeliasim_msgs_srvs::simRosEraseFile::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=-1;
@@ -2658,7 +2658,7 @@ bool ROS_server::simRosEraseFileService(vrep_common::simRosEraseFile::Request &r
 	return true;
 }
 
-bool ROS_server::simRosGetArrayParameterService(vrep_common::simRosGetArrayParameter::Request &req,vrep_common::simRosGetArrayParameter::Response &res)
+bool ROS_server::simRosGetArrayParameterService(coppeliasim_msgs_srvs::simRosGetArrayParameter::Request &req,coppeliasim_msgs_srvs::simRosGetArrayParameter::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	float vals[3];
@@ -2671,7 +2671,7 @@ bool ROS_server::simRosGetArrayParameterService(vrep_common::simRosGetArrayParam
 	return true;
 }
 
-bool ROS_server::simRosGetBooleanParameterService(vrep_common::simRosGetBooleanParameter::Request &req,vrep_common::simRosGetBooleanParameter::Response &res)
+bool ROS_server::simRosGetBooleanParameterService(coppeliasim_msgs_srvs::simRosGetBooleanParameter::Request &req,coppeliasim_msgs_srvs::simRosGetBooleanParameter::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.parameterValue=simGetBooleanParameter(req.parameter);
@@ -2679,7 +2679,7 @@ bool ROS_server::simRosGetBooleanParameterService(vrep_common::simRosGetBooleanP
 	return true;
 }
 
-bool ROS_server::simRosGetCollisionHandleService(vrep_common::simRosGetCollisionHandle::Request &req,vrep_common::simRosGetCollisionHandle::Response &res)
+bool ROS_server::simRosGetCollisionHandleService(coppeliasim_msgs_srvs::simRosGetCollisionHandle::Request &req,coppeliasim_msgs_srvs::simRosGetCollisionHandle::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.handle=simGetCollisionHandle(req.collisionName.c_str());
@@ -2687,7 +2687,7 @@ bool ROS_server::simRosGetCollisionHandleService(vrep_common::simRosGetCollision
 	return true;
 }
 
-// bool ROS_server::simRosGetCollectionHandleService(vrep_common::simRosGetCollectionHandle::Request &req,vrep_common::simRosGetCollectionHandle::Response &res)
+// bool ROS_server::simRosGetCollectionHandleService(coppeliasim_msgs_srvs::simRosGetCollectionHandle::Request &req,coppeliasim_msgs_srvs::simRosGetCollectionHandle::Response &res)
 // {
 // 	int errorModeSaved=_handleServiceErrors_start();
 // 	res.handle=simGetCollectionHandle(req.collectionName.c_str());
@@ -2695,7 +2695,7 @@ bool ROS_server::simRosGetCollisionHandleService(vrep_common::simRosGetCollision
 // 	return true;
 // }
 
-bool ROS_server::simRosGetDialogInputService(vrep_common::simRosGetDialogInput::Request &req,vrep_common::simRosGetDialogInput::Response &res)
+bool ROS_server::simRosGetDialogInputService(coppeliasim_msgs_srvs::simRosGetDialogInput::Request &req,coppeliasim_msgs_srvs::simRosGetDialogInput::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	char* input=simGetDialogInput(req.dialogHandle);
@@ -2714,7 +2714,7 @@ bool ROS_server::simRosGetDialogInputService(vrep_common::simRosGetDialogInput::
 	return true;
 }
 
-bool ROS_server::simRosGetDialogResultService(vrep_common::simRosGetDialogResult::Request &req,vrep_common::simRosGetDialogResult::Response &res)
+bool ROS_server::simRosGetDialogResultService(coppeliasim_msgs_srvs::simRosGetDialogResult::Request &req,coppeliasim_msgs_srvs::simRosGetDialogResult::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simGetDialogResult(req.dialogHandle);
@@ -2722,7 +2722,7 @@ bool ROS_server::simRosGetDialogResultService(vrep_common::simRosGetDialogResult
 	return true;
 }
 
-bool ROS_server::simRosGetDistanceHandleService(vrep_common::simRosGetDistanceHandle::Request &req,vrep_common::simRosGetDistanceHandle::Response &res)
+bool ROS_server::simRosGetDistanceHandleService(coppeliasim_msgs_srvs::simRosGetDistanceHandle::Request &req,coppeliasim_msgs_srvs::simRosGetDistanceHandle::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.handle=simGetDistanceHandle(req.distanceName.c_str());
@@ -2730,7 +2730,7 @@ bool ROS_server::simRosGetDistanceHandleService(vrep_common::simRosGetDistanceHa
 	return true;
 }
 
-bool ROS_server::simRosGetFloatingParameterService(vrep_common::simRosGetFloatingParameter::Request &req,vrep_common::simRosGetFloatingParameter::Response &res)
+bool ROS_server::simRosGetFloatingParameterService(coppeliasim_msgs_srvs::simRosGetFloatingParameter::Request &req,coppeliasim_msgs_srvs::simRosGetFloatingParameter::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	float p;
@@ -2740,7 +2740,7 @@ bool ROS_server::simRosGetFloatingParameterService(vrep_common::simRosGetFloatin
 	return true;
 }
 
-bool ROS_server::simRosGetFloatSignalService(vrep_common::simRosGetFloatSignal::Request &req,vrep_common::simRosGetFloatSignal::Response &res)
+bool ROS_server::simRosGetFloatSignalService(coppeliasim_msgs_srvs::simRosGetFloatSignal::Request &req,coppeliasim_msgs_srvs::simRosGetFloatSignal::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	float signalValue;
@@ -2750,7 +2750,7 @@ bool ROS_server::simRosGetFloatSignalService(vrep_common::simRosGetFloatSignal::
 	return true;
 }
 
-bool ROS_server::simRosGetIntegerParameterService(vrep_common::simRosGetIntegerParameter::Request &req,vrep_common::simRosGetIntegerParameter::Response &res)
+bool ROS_server::simRosGetIntegerParameterService(coppeliasim_msgs_srvs::simRosGetIntegerParameter::Request &req,coppeliasim_msgs_srvs::simRosGetIntegerParameter::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	int p;
@@ -2760,7 +2760,7 @@ bool ROS_server::simRosGetIntegerParameterService(vrep_common::simRosGetIntegerP
 	return true;
 }
 
-bool ROS_server::simRosGetIntegerSignalService(vrep_common::simRosGetIntegerSignal::Request &req,vrep_common::simRosGetIntegerSignal::Response &res)
+bool ROS_server::simRosGetIntegerSignalService(coppeliasim_msgs_srvs::simRosGetIntegerSignal::Request &req,coppeliasim_msgs_srvs::simRosGetIntegerSignal::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	int signalValue;
@@ -2770,7 +2770,7 @@ bool ROS_server::simRosGetIntegerSignalService(vrep_common::simRosGetIntegerSign
 	return true;
 }
 
-bool ROS_server::simRosGetJointMatrixService(vrep_common::simRosGetJointMatrix::Request &req,vrep_common::simRosGetJointMatrix::Response &res)
+bool ROS_server::simRosGetJointMatrixService(coppeliasim_msgs_srvs::simRosGetJointMatrix::Request &req,coppeliasim_msgs_srvs::simRosGetJointMatrix::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	float v;
@@ -2800,7 +2800,7 @@ bool ROS_server::simRosGetJointMatrixService(vrep_common::simRosGetJointMatrix::
 	return true;
 }
 
-bool ROS_server::simRosGetJointStateService(vrep_common::simRosGetJointState::Request &req,vrep_common::simRosGetJointState::Response &res)
+bool ROS_server::simRosGetJointStateService(coppeliasim_msgs_srvs::simRosGetJointState::Request &req,coppeliasim_msgs_srvs::simRosGetJointState::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 
@@ -2852,7 +2852,7 @@ bool ROS_server::simRosGetJointStateService(vrep_common::simRosGetJointState::Re
 	return true;
 }
 
-bool ROS_server::simRosGetLastErrorsService(vrep_common::simRosGetLastErrors::Request &req,vrep_common::simRosGetLastErrors::Response &res)
+bool ROS_server::simRosGetLastErrorsService(coppeliasim_msgs_srvs::simRosGetLastErrors::Request &req,coppeliasim_msgs_srvs::simRosGetLastErrors::Response &res)
 {
 	res.errorStrings.clear();
 	res.errorCnt=0;
@@ -2866,7 +2866,7 @@ bool ROS_server::simRosGetLastErrorsService(vrep_common::simRosGetLastErrors::Re
 	return true;
 }
 
-bool ROS_server::simRosGetModelPropertyService(vrep_common::simRosGetModelProperty::Request &req,vrep_common::simRosGetModelProperty::Response &res)
+bool ROS_server::simRosGetModelPropertyService(coppeliasim_msgs_srvs::simRosGetModelProperty::Request &req,coppeliasim_msgs_srvs::simRosGetModelProperty::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.propertyValue=simGetModelProperty(req.handle);
@@ -2874,7 +2874,7 @@ bool ROS_server::simRosGetModelPropertyService(vrep_common::simRosGetModelProper
 	return true;
 }
 
-bool ROS_server::simRosGetObjectChildService(vrep_common::simRosGetObjectChild::Request &req,vrep_common::simRosGetObjectChild::Response &res)
+bool ROS_server::simRosGetObjectChildService(coppeliasim_msgs_srvs::simRosGetObjectChild::Request &req,coppeliasim_msgs_srvs::simRosGetObjectChild::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.childHandle=simGetObjectChild(req.handle,req.index);
@@ -2882,7 +2882,7 @@ bool ROS_server::simRosGetObjectChildService(vrep_common::simRosGetObjectChild::
 	return true;
 }
 
-bool ROS_server::simRosGetObjectFloatParameterService(vrep_common::simRosGetObjectFloatParameter::Request &req,vrep_common::simRosGetObjectFloatParameter::Response &res)
+bool ROS_server::simRosGetObjectFloatParameterService(coppeliasim_msgs_srvs::simRosGetObjectFloatParameter::Request &req,coppeliasim_msgs_srvs::simRosGetObjectFloatParameter::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simGetObjectFloatParameter(req.handle,req.parameterID,&res.parameterValue);
@@ -2890,7 +2890,7 @@ bool ROS_server::simRosGetObjectFloatParameterService(vrep_common::simRosGetObje
 	return true;
 }
 
-bool ROS_server::simRosGetObjectHandleService(vrep_common::simRosGetObjectHandle::Request &req,vrep_common::simRosGetObjectHandle::Response &res)
+bool ROS_server::simRosGetObjectHandleService(coppeliasim_msgs_srvs::simRosGetObjectHandle::Request &req,coppeliasim_msgs_srvs::simRosGetObjectHandle::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.handle=simGetObjectHandle(req.objectName.c_str());
@@ -2898,7 +2898,7 @@ bool ROS_server::simRosGetObjectHandleService(vrep_common::simRosGetObjectHandle
 	return true;
 }
 
-bool ROS_server::simRosGetObjectIntParameterService(vrep_common::simRosGetObjectIntParameter::Request &req,vrep_common::simRosGetObjectIntParameter::Response &res)
+bool ROS_server::simRosGetObjectIntParameterService(coppeliasim_msgs_srvs::simRosGetObjectIntParameter::Request &req,coppeliasim_msgs_srvs::simRosGetObjectIntParameter::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simGetObjectIntParameter(req.handle,req.parameterID,&res.parameterValue);
@@ -2906,7 +2906,7 @@ bool ROS_server::simRosGetObjectIntParameterService(vrep_common::simRosGetObject
 	return true;
 }
 /*
-bool ROS_server::simRosGetObjectOrientationService(vrep_common::simRosGetObjectOrientation::Request &req,vrep_common::simRosGetObjectOrientation::Response &res)
+bool ROS_server::simRosGetObjectOrientationService(coppeliasim_msgs_srvs::simRosGetObjectOrientation::Request &req,coppeliasim_msgs_srvs::simRosGetObjectOrientation::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.eulerAngles.resize(3);
@@ -2916,7 +2916,7 @@ bool ROS_server::simRosGetObjectOrientationService(vrep_common::simRosGetObjectO
 }
 */
 /*
-bool ROS_server::simRosGetObjectQuaternionService(vrep_common::simRosGetObjectQuaternion::Request &req,vrep_common::simRosGetObjectQuaternion::Response &res)
+bool ROS_server::simRosGetObjectQuaternionService(coppeliasim_msgs_srvs::simRosGetObjectQuaternion::Request &req,coppeliasim_msgs_srvs::simRosGetObjectQuaternion::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.quaternion.resize(4);
@@ -2925,7 +2925,7 @@ bool ROS_server::simRosGetObjectQuaternionService(vrep_common::simRosGetObjectQu
 	return true;
 }
 */
-bool ROS_server::simRosGetObjectParentService(vrep_common::simRosGetObjectParent::Request &req,vrep_common::simRosGetObjectParent::Response &res)
+bool ROS_server::simRosGetObjectParentService(coppeliasim_msgs_srvs::simRosGetObjectParent::Request &req,coppeliasim_msgs_srvs::simRosGetObjectParent::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.parentHandle=simGetObjectParent(req.handle);
@@ -2933,7 +2933,7 @@ bool ROS_server::simRosGetObjectParentService(vrep_common::simRosGetObjectParent
 	return true;
 }
 /*
-bool ROS_server::simRosGetObjectPositionService(vrep_common::simRosGetObjectPosition::Request &req,vrep_common::simRosGetObjectPosition::Response &res)
+bool ROS_server::simRosGetObjectPositionService(coppeliasim_msgs_srvs::simRosGetObjectPosition::Request &req,coppeliasim_msgs_srvs::simRosGetObjectPosition::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.position.resize(3);
@@ -2942,7 +2942,7 @@ bool ROS_server::simRosGetObjectPositionService(vrep_common::simRosGetObjectPosi
 	return true;
 }
 */
-bool ROS_server::simRosGetObjectPoseService(vrep_common::simRosGetObjectPose::Request &req,vrep_common::simRosGetObjectPose::Response &res)
+bool ROS_server::simRosGetObjectPoseService(coppeliasim_msgs_srvs::simRosGetObjectPose::Request &req,coppeliasim_msgs_srvs::simRosGetObjectPose::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	float p[3];
@@ -2965,7 +2965,7 @@ bool ROS_server::simRosGetObjectPoseService(vrep_common::simRosGetObjectPose::Re
 	return true;
 }
 
-bool ROS_server::simRosGetObjectsService(vrep_common::simRosGetObjects::Request &req,vrep_common::simRosGetObjects::Response &res)
+bool ROS_server::simRosGetObjectsService(coppeliasim_msgs_srvs::simRosGetObjects::Request &req,coppeliasim_msgs_srvs::simRosGetObjects::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=0;
@@ -2982,7 +2982,7 @@ bool ROS_server::simRosGetObjectsService(vrep_common::simRosGetObjects::Request 
 	return true;
 }
 
-bool ROS_server::simRosGetObjectSelectionService(vrep_common::simRosGetObjectSelection::Request &req,vrep_common::simRosGetObjectSelection::Response &res)
+bool ROS_server::simRosGetObjectSelectionService(coppeliasim_msgs_srvs::simRosGetObjectSelection::Request &req,coppeliasim_msgs_srvs::simRosGetObjectSelection::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	int s=simGetObjectSelectionSize();
@@ -2993,7 +2993,7 @@ bool ROS_server::simRosGetObjectSelectionService(vrep_common::simRosGetObjectSel
 	return true;
 }
 
-bool ROS_server::simRosGetStringParameterService(vrep_common::simRosGetStringParameter::Request &req,vrep_common::simRosGetStringParameter::Response &res)
+bool ROS_server::simRosGetStringParameterService(coppeliasim_msgs_srvs::simRosGetStringParameter::Request &req,coppeliasim_msgs_srvs::simRosGetStringParameter::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	char* str=simGetStringParameter(req.parameter);
@@ -3009,7 +3009,7 @@ bool ROS_server::simRosGetStringParameterService(vrep_common::simRosGetStringPar
 	return true;
 }
 
-bool ROS_server::simRosGetStringSignalService(vrep_common::simRosGetStringSignal::Request &req,vrep_common::simRosGetStringSignal::Response &res)
+bool ROS_server::simRosGetStringSignalService(coppeliasim_msgs_srvs::simRosGetStringSignal::Request &req,coppeliasim_msgs_srvs::simRosGetStringSignal::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	int signalLength;
@@ -3028,7 +3028,7 @@ bool ROS_server::simRosGetStringSignalService(vrep_common::simRosGetStringSignal
 	return true;
 }
 
-bool ROS_server::simRosGetUIButtonPropertyService(vrep_common::simRosGetUIButtonProperty::Request &req,vrep_common::simRosGetUIButtonProperty::Response &res)
+bool ROS_server::simRosGetUIButtonPropertyService(coppeliasim_msgs_srvs::simRosGetUIButtonProperty::Request &req,coppeliasim_msgs_srvs::simRosGetUIButtonProperty::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.propertyValue=simGetUIButtonProperty(req.uiHandle,req.buttonID);
@@ -3036,7 +3036,7 @@ bool ROS_server::simRosGetUIButtonPropertyService(vrep_common::simRosGetUIButton
 	return true;
 }
 
-bool ROS_server::simRosGetUIEventButtonService(vrep_common::simRosGetUIEventButton::Request &req,vrep_common::simRosGetUIEventButton::Response &res)
+bool ROS_server::simRosGetUIEventButtonService(coppeliasim_msgs_srvs::simRosGetUIEventButton::Request &req,coppeliasim_msgs_srvs::simRosGetUIEventButton::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.auxiliaryValues.resize(2);
@@ -3045,7 +3045,7 @@ bool ROS_server::simRosGetUIEventButtonService(vrep_common::simRosGetUIEventButt
 	return true;
 }
 
-bool ROS_server::simRosGetUIHandleService(vrep_common::simRosGetUIHandle::Request &req,vrep_common::simRosGetUIHandle::Response &res)
+bool ROS_server::simRosGetUIHandleService(coppeliasim_msgs_srvs::simRosGetUIHandle::Request &req,coppeliasim_msgs_srvs::simRosGetUIHandle::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.handle=simGetUIHandle(req.uiName.c_str());
@@ -3053,7 +3053,7 @@ bool ROS_server::simRosGetUIHandleService(vrep_common::simRosGetUIHandle::Reques
 	return true;
 }
 
-bool ROS_server::simRosGetUISliderService(vrep_common::simRosGetUISlider::Request &req,vrep_common::simRosGetUISlider::Response &res)
+bool ROS_server::simRosGetUISliderService(coppeliasim_msgs_srvs::simRosGetUISlider::Request &req,coppeliasim_msgs_srvs::simRosGetUISlider::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.position=simGetUISlider(req.uiHandle,req.buttonID);
@@ -3061,7 +3061,7 @@ bool ROS_server::simRosGetUISliderService(vrep_common::simRosGetUISlider::Reques
 	return true;
 }
 
-bool ROS_server::simRosGetVisionSensorDepthBufferService(vrep_common::simRosGetVisionSensorDepthBuffer::Request &req,vrep_common::simRosGetVisionSensorDepthBuffer::Response &res)
+bool ROS_server::simRosGetVisionSensorDepthBufferService(coppeliasim_msgs_srvs::simRosGetVisionSensorDepthBuffer::Request &req,coppeliasim_msgs_srvs::simRosGetVisionSensorDepthBuffer::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.resolution.resize(2);
@@ -3086,7 +3086,7 @@ bool ROS_server::simRosGetVisionSensorDepthBufferService(vrep_common::simRosGetV
 	return true;
 }
 
-bool ROS_server::simRosGetVisionSensorImageService(vrep_common::simRosGetVisionSensorImage::Request &req,vrep_common::simRosGetVisionSensorImage::Response &res)
+bool ROS_server::simRosGetVisionSensorImageService(coppeliasim_msgs_srvs::simRosGetVisionSensorImage::Request &req,coppeliasim_msgs_srvs::simRosGetVisionSensorImage::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	int resol[2];
@@ -3143,15 +3143,15 @@ bool ROS_server::simRosGetVisionSensorImageService(vrep_common::simRosGetVisionS
 	return true;
 }
 
-bool ROS_server::simRosLoadModuleService(vrep_common::simRosLoadModule::Request &req,vrep_common::simRosLoadModule::Response &res)
+bool ROS_server::simRosLoadModuleService(coppeliasim_msgs_srvs::simRosLoadModule::Request &req,coppeliasim_msgs_srvs::simRosLoadModule::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
-	res.result=simLoadModule(req.fileName.c_str(), req.pluginName.c_str());
+	res.pluginHandle=simLoadModule(req.fileName.c_str(), req.pluginName.c_str());
 	_handleServiceErrors_end(errorModeSaved);
 	return true;
 }
 
-bool ROS_server::simRosUnloadModuleService(vrep_common::simRosUnloadModule::Request &req,vrep_common::simRosUnloadModule::Response &res)
+bool ROS_server::simRosUnloadModuleService(coppeliasim_msgs_srvs::simRosUnloadModule::Request &req,coppeliasim_msgs_srvs::simRosUnloadModule::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simUnloadModule(req.pluginHandle);
@@ -3159,7 +3159,7 @@ bool ROS_server::simRosUnloadModuleService(vrep_common::simRosUnloadModule::Requ
 	return true;
 }
 
-bool ROS_server::simRosLoadModelService(vrep_common::simRosLoadModel::Request &req,vrep_common::simRosLoadModel::Response &res)
+bool ROS_server::simRosLoadModelService(coppeliasim_msgs_srvs::simRosLoadModel::Request &req,coppeliasim_msgs_srvs::simRosLoadModel::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	simRemoveObjectFromSelection(sim_handle_all,-1);
@@ -3172,7 +3172,7 @@ bool ROS_server::simRosLoadModelService(vrep_common::simRosLoadModel::Request &r
 	return true;
 }
 
-bool ROS_server::simRosLoadSceneService(vrep_common::simRosLoadScene::Request &req,vrep_common::simRosLoadScene::Response &res)
+bool ROS_server::simRosLoadSceneService(coppeliasim_msgs_srvs::simRosLoadScene::Request &req,coppeliasim_msgs_srvs::simRosLoadScene::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	int initValue=simGetBooleanParameter(sim_boolparam_scene_and_model_load_messages);
@@ -3183,7 +3183,7 @@ bool ROS_server::simRosLoadSceneService(vrep_common::simRosLoadScene::Request &r
 	return true;
 }
 
-bool ROS_server::simRosLoadUIService(vrep_common::simRosLoadUI::Request &req,vrep_common::simRosLoadUI::Response &res)
+bool ROS_server::simRosLoadUIService(coppeliasim_msgs_srvs::simRosLoadUI::Request &req,coppeliasim_msgs_srvs::simRosLoadUI::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	int handles[1000];
@@ -3198,7 +3198,7 @@ bool ROS_server::simRosLoadUIService(vrep_common::simRosLoadUI::Request &req,vre
 	return true;
 }
 
-bool ROS_server::simRosPauseSimulationService(vrep_common::simRosPauseSimulation::Request &req,vrep_common::simRosPauseSimulation::Response &res)
+bool ROS_server::simRosPauseSimulationService(coppeliasim_msgs_srvs::simRosPauseSimulation::Request &req,coppeliasim_msgs_srvs::simRosPauseSimulation::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simPauseSimulation();
@@ -3206,7 +3206,7 @@ bool ROS_server::simRosPauseSimulationService(vrep_common::simRosPauseSimulation
 	return true;
 }
 
-bool ROS_server::simRosReadCollisionService(vrep_common::simRosReadCollision::Request &req,vrep_common::simRosReadCollision::Response &res)
+bool ROS_server::simRosReadCollisionService(coppeliasim_msgs_srvs::simRosReadCollision::Request &req,coppeliasim_msgs_srvs::simRosReadCollision::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.collisionState=simReadCollision(req.handle);
@@ -3214,7 +3214,7 @@ bool ROS_server::simRosReadCollisionService(vrep_common::simRosReadCollision::Re
 	return true;
 }
 
-bool ROS_server::simRosReadDistanceService(vrep_common::simRosReadDistance::Request &req,vrep_common::simRosReadDistance::Response &res)
+bool ROS_server::simRosReadDistanceService(coppeliasim_msgs_srvs::simRosReadDistance::Request &req,coppeliasim_msgs_srvs::simRosReadDistance::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simReadDistance(req.handle,&res.distance);
@@ -3222,7 +3222,7 @@ bool ROS_server::simRosReadDistanceService(vrep_common::simRosReadDistance::Requ
 	return true;
 }
 
-bool ROS_server::simRosReadForceSensorService(vrep_common::simRosReadForceSensor::Request &req,vrep_common::simRosReadForceSensor::Response &res)
+bool ROS_server::simRosReadForceSensorService(coppeliasim_msgs_srvs::simRosReadForceSensor::Request &req,coppeliasim_msgs_srvs::simRosReadForceSensor::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	float f[3];
@@ -3238,7 +3238,7 @@ bool ROS_server::simRosReadForceSensorService(vrep_common::simRosReadForceSensor
 	return true;
 }
 
-bool ROS_server::simRosReadProximitySensorService(vrep_common::simRosReadProximitySensor::Request &req,vrep_common::simRosReadProximitySensor::Response &res)
+bool ROS_server::simRosReadProximitySensorService(coppeliasim_msgs_srvs::simRosReadProximitySensor::Request &req,coppeliasim_msgs_srvs::simRosReadProximitySensor::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	float detectedPoint[4];
@@ -3251,7 +3251,7 @@ bool ROS_server::simRosReadProximitySensorService(vrep_common::simRosReadProximi
 	return true;
 }
 
-bool ROS_server::simRosReadVisionSensorService(vrep_common::simRosReadVisionSensor::Request &req,vrep_common::simRosReadVisionSensor::Response &res)
+bool ROS_server::simRosReadVisionSensorService(coppeliasim_msgs_srvs::simRosReadVisionSensor::Request &req,coppeliasim_msgs_srvs::simRosReadVisionSensor::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	float* auxValues;
@@ -3276,7 +3276,7 @@ bool ROS_server::simRosReadVisionSensorService(vrep_common::simRosReadVisionSens
 	return true;
 }
 
-bool ROS_server::simRosRemoveObjectService(vrep_common::simRosRemoveObject::Request &req,vrep_common::simRosRemoveObject::Response &res)
+bool ROS_server::simRosRemoveObjectService(coppeliasim_msgs_srvs::simRosRemoveObject::Request &req,coppeliasim_msgs_srvs::simRosRemoveObject::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simRemoveObject(req.handle);
@@ -3284,7 +3284,7 @@ bool ROS_server::simRosRemoveObjectService(vrep_common::simRosRemoveObject::Requ
 	return true;
 }
 
-bool ROS_server::simRosRemoveModelService(vrep_common::simRosRemoveModel::Request &req,vrep_common::simRosRemoveModel::Response &res)
+bool ROS_server::simRosRemoveModelService(coppeliasim_msgs_srvs::simRosRemoveModel::Request &req,coppeliasim_msgs_srvs::simRosRemoveModel::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simRemoveModel(req.handle);
@@ -3292,7 +3292,7 @@ bool ROS_server::simRosRemoveModelService(vrep_common::simRosRemoveModel::Reques
 	return true;
 }
 
-bool ROS_server::simRosRemoveUIService(vrep_common::simRosRemoveUI::Request &req,vrep_common::simRosRemoveUI::Response &res)
+bool ROS_server::simRosRemoveUIService(coppeliasim_msgs_srvs::simRosRemoveUI::Request &req,coppeliasim_msgs_srvs::simRosRemoveUI::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simRemoveUI(req.handle);
@@ -3300,7 +3300,7 @@ bool ROS_server::simRosRemoveUIService(vrep_common::simRosRemoveUI::Request &req
 	return true;
 }
 
-bool ROS_server::simRosSetArrayParameterService(vrep_common::simRosSetArrayParameter::Request &req,vrep_common::simRosSetArrayParameter::Response &res)
+bool ROS_server::simRosSetArrayParameterService(coppeliasim_msgs_srvs::simRosSetArrayParameter::Request &req,coppeliasim_msgs_srvs::simRosSetArrayParameter::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	if (req.parameterValues.size()>=3)
@@ -3311,7 +3311,7 @@ bool ROS_server::simRosSetArrayParameterService(vrep_common::simRosSetArrayParam
 	return true;
 }
 
-bool ROS_server::simRosSetBooleanParameterService(vrep_common::simRosSetBooleanParameter::Request &req,vrep_common::simRosSetBooleanParameter::Response &res)
+bool ROS_server::simRosSetBooleanParameterService(coppeliasim_msgs_srvs::simRosSetBooleanParameter::Request &req,coppeliasim_msgs_srvs::simRosSetBooleanParameter::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetBooleanParameter(req.parameter,req.parameterValue);
@@ -3319,7 +3319,7 @@ bool ROS_server::simRosSetBooleanParameterService(vrep_common::simRosSetBooleanP
 	return true;
 }
 
-bool ROS_server::simRosSetFloatingParameterService(vrep_common::simRosSetFloatingParameter::Request &req,vrep_common::simRosSetFloatingParameter::Response &res)
+bool ROS_server::simRosSetFloatingParameterService(coppeliasim_msgs_srvs::simRosSetFloatingParameter::Request &req,coppeliasim_msgs_srvs::simRosSetFloatingParameter::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetFloatingParameter(req.parameter,req.parameterValue);
@@ -3327,7 +3327,7 @@ bool ROS_server::simRosSetFloatingParameterService(vrep_common::simRosSetFloatin
 	return true;
 }
 
-bool ROS_server::simRosSetFloatSignalService(vrep_common::simRosSetFloatSignal::Request &req,vrep_common::simRosSetFloatSignal::Response &res)
+bool ROS_server::simRosSetFloatSignalService(coppeliasim_msgs_srvs::simRosSetFloatSignal::Request &req,coppeliasim_msgs_srvs::simRosSetFloatSignal::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetFloatSignal(req.signalName.c_str(),req.signalValue);
@@ -3335,7 +3335,7 @@ bool ROS_server::simRosSetFloatSignalService(vrep_common::simRosSetFloatSignal::
 	return true;
 }
 
-bool ROS_server::simRosSetIntegerParameterService(vrep_common::simRosSetIntegerParameter::Request &req,vrep_common::simRosSetIntegerParameter::Response &res)
+bool ROS_server::simRosSetIntegerParameterService(coppeliasim_msgs_srvs::simRosSetIntegerParameter::Request &req,coppeliasim_msgs_srvs::simRosSetIntegerParameter::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetIntegerParameter(req.parameter,req.parameterValue);
@@ -3343,7 +3343,7 @@ bool ROS_server::simRosSetIntegerParameterService(vrep_common::simRosSetIntegerP
 	return true;
 }
 
-bool ROS_server::simRosSetIntegerSignalService(vrep_common::simRosSetIntegerSignal::Request &req,vrep_common::simRosSetIntegerSignal::Response &res)
+bool ROS_server::simRosSetIntegerSignalService(coppeliasim_msgs_srvs::simRosSetIntegerSignal::Request &req,coppeliasim_msgs_srvs::simRosSetIntegerSignal::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetIntegerSignal(req.signalName.c_str(),req.signalValue);
@@ -3351,7 +3351,7 @@ bool ROS_server::simRosSetIntegerSignalService(vrep_common::simRosSetIntegerSign
 	return true;
 }
 
-bool ROS_server::simRosSetJointForceService(vrep_common::simRosSetJointForce::Request &req,vrep_common::simRosSetJointForce::Response &res)
+bool ROS_server::simRosSetJointForceService(coppeliasim_msgs_srvs::simRosSetJointForce::Request &req,coppeliasim_msgs_srvs::simRosSetJointForce::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetJointForce(req.handle,(float)req.forceOrTorque);
@@ -3359,7 +3359,7 @@ bool ROS_server::simRosSetJointForceService(vrep_common::simRosSetJointForce::Re
 	return true;
 }
 
-bool ROS_server::simRosSetJointPositionService(vrep_common::simRosSetJointPosition::Request &req,vrep_common::simRosSetJointPosition::Response &res)
+bool ROS_server::simRosSetJointPositionService(coppeliasim_msgs_srvs::simRosSetJointPosition::Request &req,coppeliasim_msgs_srvs::simRosSetJointPosition::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetJointPosition(req.handle,(float)req.position);
@@ -3367,7 +3367,7 @@ bool ROS_server::simRosSetJointPositionService(vrep_common::simRosSetJointPositi
 	return true;
 }
 
-bool ROS_server::simRosSetJointTargetPositionService(vrep_common::simRosSetJointTargetPosition::Request &req,vrep_common::simRosSetJointTargetPosition::Response &res)
+bool ROS_server::simRosSetJointTargetPositionService(coppeliasim_msgs_srvs::simRosSetJointTargetPosition::Request &req,coppeliasim_msgs_srvs::simRosSetJointTargetPosition::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetJointTargetPosition(req.handle,(float)req.targetPosition);
@@ -3375,7 +3375,7 @@ bool ROS_server::simRosSetJointTargetPositionService(vrep_common::simRosSetJoint
 	return true;
 }
 
-bool ROS_server::simRosSetJointTargetVelocityService(vrep_common::simRosSetJointTargetVelocity::Request &req,vrep_common::simRosSetJointTargetVelocity::Response &res)
+bool ROS_server::simRosSetJointTargetVelocityService(coppeliasim_msgs_srvs::simRosSetJointTargetVelocity::Request &req,coppeliasim_msgs_srvs::simRosSetJointTargetVelocity::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetJointTargetVelocity(req.handle,(float)req.targetVelocity);
@@ -3383,7 +3383,7 @@ bool ROS_server::simRosSetJointTargetVelocityService(vrep_common::simRosSetJoint
 	return true;
 }
 
-bool ROS_server::simRosSetModelPropertyService(vrep_common::simRosSetModelProperty::Request &req,vrep_common::simRosSetModelProperty::Response &res)
+bool ROS_server::simRosSetModelPropertyService(coppeliasim_msgs_srvs::simRosSetModelProperty::Request &req,coppeliasim_msgs_srvs::simRosSetModelProperty::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetModelProperty(req.handle,req.propertyValue);
@@ -3391,7 +3391,7 @@ bool ROS_server::simRosSetModelPropertyService(vrep_common::simRosSetModelProper
 	return true;
 }
 
-bool ROS_server::simRosSetObjectFloatParameterService(vrep_common::simRosSetObjectFloatParameter::Request &req,vrep_common::simRosSetObjectFloatParameter::Response &res)
+bool ROS_server::simRosSetObjectFloatParameterService(coppeliasim_msgs_srvs::simRosSetObjectFloatParameter::Request &req,coppeliasim_msgs_srvs::simRosSetObjectFloatParameter::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetObjectFloatParameter(req.handle,req.parameter,req.parameterValue);
@@ -3399,7 +3399,7 @@ bool ROS_server::simRosSetObjectFloatParameterService(vrep_common::simRosSetObje
 	return true;
 }
 
-bool ROS_server::simRosSetObjectIntParameterService(vrep_common::simRosSetObjectIntParameter::Request &req,vrep_common::simRosSetObjectIntParameter::Response &res)
+bool ROS_server::simRosSetObjectIntParameterService(coppeliasim_msgs_srvs::simRosSetObjectIntParameter::Request &req,coppeliasim_msgs_srvs::simRosSetObjectIntParameter::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetObjectIntParameter(req.handle,req.parameter,req.parameterValue);
@@ -3407,7 +3407,7 @@ bool ROS_server::simRosSetObjectIntParameterService(vrep_common::simRosSetObject
 	return true;
 }
 
-bool ROS_server::simRosSetObjectPoseService(vrep_common::simRosSetObjectPose::Request &req,vrep_common::simRosSetObjectPose::Response &res)
+bool ROS_server::simRosSetObjectPoseService(coppeliasim_msgs_srvs::simRosSetObjectPose::Request &req,coppeliasim_msgs_srvs::simRosSetObjectPose::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	float p[3]={(float)req.pose.position.x,(float)req.pose.position.y,(float)req.pose.position.z};
@@ -3419,7 +3419,7 @@ bool ROS_server::simRosSetObjectPoseService(vrep_common::simRosSetObjectPose::Re
 	return true;
 }
 
-bool ROS_server::simRosSetObjectQuaternionService(vrep_common::simRosSetObjectQuaternion::Request &req,vrep_common::simRosSetObjectQuaternion::Response &res)
+bool ROS_server::simRosSetObjectQuaternionService(coppeliasim_msgs_srvs::simRosSetObjectQuaternion::Request &req,coppeliasim_msgs_srvs::simRosSetObjectQuaternion::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	float q[4]={(float)req.quaternion.x,(float)req.quaternion.y,(float)req.quaternion.z,(float)req.quaternion.w};
@@ -3428,7 +3428,7 @@ bool ROS_server::simRosSetObjectQuaternionService(vrep_common::simRosSetObjectQu
 	return true;
 }
 
-bool ROS_server::simRosSetObjectParentService(vrep_common::simRosSetObjectParent::Request &req,vrep_common::simRosSetObjectParent::Response &res)
+bool ROS_server::simRosSetObjectParentService(coppeliasim_msgs_srvs::simRosSetObjectParent::Request &req,coppeliasim_msgs_srvs::simRosSetObjectParent::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetObjectParent(req.handle,req.parentHandle,req.keepInPlace);
@@ -3436,7 +3436,7 @@ bool ROS_server::simRosSetObjectParentService(vrep_common::simRosSetObjectParent
 	return true;
 }
 
-bool ROS_server::simRosSetObjectPositionService(vrep_common::simRosSetObjectPosition::Request &req,vrep_common::simRosSetObjectPosition::Response &res)
+bool ROS_server::simRosSetObjectPositionService(coppeliasim_msgs_srvs::simRosSetObjectPosition::Request &req,coppeliasim_msgs_srvs::simRosSetObjectPosition::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	float p[3]={(float)req.position.x,(float)req.position.y,(float)req.position.z};
@@ -3445,7 +3445,7 @@ bool ROS_server::simRosSetObjectPositionService(vrep_common::simRosSetObjectPosi
 	return true;
 }
 
-bool ROS_server::simRosSetObjectSelectionService(vrep_common::simRosSetObjectSelection::Request &req,vrep_common::simRosSetObjectSelection::Response &res)
+bool ROS_server::simRosSetObjectSelectionService(coppeliasim_msgs_srvs::simRosSetObjectSelection::Request &req,coppeliasim_msgs_srvs::simRosSetObjectSelection::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	simRemoveObjectFromSelection(sim_handle_all,0);
@@ -3457,7 +3457,7 @@ bool ROS_server::simRosSetObjectSelectionService(vrep_common::simRosSetObjectSel
 	return true;
 }
 
-bool ROS_server::simRosGetInfoService(vrep_common::simRosGetInfo::Request &req,vrep_common::simRosGetInfo::Response &res)
+bool ROS_server::simRosGetInfoService(coppeliasim_msgs_srvs::simRosGetInfo::Request &req,coppeliasim_msgs_srvs::simRosGetInfo::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	int simState=simGetSimulationState();
@@ -3481,7 +3481,7 @@ bool ROS_server::simRosGetInfoService(vrep_common::simRosGetInfo::Request &req,v
 	return true;
 }
 
-bool ROS_server::simRosSetSphericalJointMatrixService(vrep_common::simRosSetSphericalJointMatrix::Request &req,vrep_common::simRosSetSphericalJointMatrix::Response &res)
+bool ROS_server::simRosSetSphericalJointMatrixService(coppeliasim_msgs_srvs::simRosSetSphericalJointMatrix::Request &req,coppeliasim_msgs_srvs::simRosSetSphericalJointMatrix::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetObjectFloatParameter(req.handle,sim_jointfloatparam_spherical_qx,(float)req.quaternion.x);
@@ -3495,7 +3495,7 @@ bool ROS_server::simRosSetSphericalJointMatrixService(vrep_common::simRosSetSphe
 	return true;
 }
 
-bool ROS_server::simRosSetStringSignalService(vrep_common::simRosSetStringSignal::Request &req,vrep_common::simRosSetStringSignal::Response &res)
+bool ROS_server::simRosSetStringSignalService(coppeliasim_msgs_srvs::simRosSetStringSignal::Request &req,coppeliasim_msgs_srvs::simRosSetStringSignal::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetStringSignal(req.signalName.c_str(),req.signalValue.c_str(),req.signalValue.length());
@@ -3503,7 +3503,7 @@ bool ROS_server::simRosSetStringSignalService(vrep_common::simRosSetStringSignal
 	return true;
 }
 
-bool ROS_server::simRosAppendStringSignalService(vrep_common::simRosAppendStringSignal::Request &req,vrep_common::simRosAppendStringSignal::Response &res)
+bool ROS_server::simRosAppendStringSignalService(coppeliasim_msgs_srvs::simRosAppendStringSignal::Request &req,coppeliasim_msgs_srvs::simRosAppendStringSignal::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	std::string theNewString;
@@ -3520,7 +3520,7 @@ bool ROS_server::simRosAppendStringSignalService(vrep_common::simRosAppendString
 	return true;
 }
 
-bool ROS_server::simRosSetUIButtonLabelService(vrep_common::simRosSetUIButtonLabel::Request &req,vrep_common::simRosSetUIButtonLabel::Response &res)
+bool ROS_server::simRosSetUIButtonLabelService(coppeliasim_msgs_srvs::simRosSetUIButtonLabel::Request &req,coppeliasim_msgs_srvs::simRosSetUIButtonLabel::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetUIButtonLabel(req.uiHandle,req.buttonID,req.upStateLabel.c_str(),req.downStateLabel.c_str());
@@ -3528,7 +3528,7 @@ bool ROS_server::simRosSetUIButtonLabelService(vrep_common::simRosSetUIButtonLab
 	return true;
 }
 
-bool ROS_server::simRosSetUIButtonPropertyService(vrep_common::simRosSetUIButtonProperty::Request &req,vrep_common::simRosSetUIButtonProperty::Response &res)
+bool ROS_server::simRosSetUIButtonPropertyService(coppeliasim_msgs_srvs::simRosSetUIButtonProperty::Request &req,coppeliasim_msgs_srvs::simRosSetUIButtonProperty::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetUIButtonProperty(req.uiHandle,req.buttonID,req.propertyValue);
@@ -3536,7 +3536,7 @@ bool ROS_server::simRosSetUIButtonPropertyService(vrep_common::simRosSetUIButton
 	return true;
 }
 
-bool ROS_server::simRosSetUISliderService(vrep_common::simRosSetUISlider::Request &req,vrep_common::simRosSetUISlider::Response &res)
+bool ROS_server::simRosSetUISliderService(coppeliasim_msgs_srvs::simRosSetUISlider::Request &req,coppeliasim_msgs_srvs::simRosSetUISlider::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simSetUISlider(req.uiHandle,req.buttonID,req.position);
@@ -3544,7 +3544,7 @@ bool ROS_server::simRosSetUISliderService(vrep_common::simRosSetUISlider::Reques
 	return true;
 }
 
-bool ROS_server::simRosSetVisionSensorImageService(vrep_common::simRosSetVisionSensorImage::Request &req,vrep_common::simRosSetVisionSensorImage::Response &res)
+bool ROS_server::simRosSetVisionSensorImageService(coppeliasim_msgs_srvs::simRosSetVisionSensorImage::Request &req,coppeliasim_msgs_srvs::simRosSetVisionSensorImage::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 
@@ -3599,7 +3599,7 @@ bool ROS_server::simRosSetVisionSensorImageService(vrep_common::simRosSetVisionS
 	return true;
 }
 
-bool ROS_server::simRosStartSimulationService(vrep_common::simRosStartSimulation::Request &req,vrep_common::simRosStartSimulation::Response &res)
+bool ROS_server::simRosStartSimulationService(coppeliasim_msgs_srvs::simRosStartSimulation::Request &req,coppeliasim_msgs_srvs::simRosStartSimulation::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simStartSimulation();
@@ -3607,7 +3607,7 @@ bool ROS_server::simRosStartSimulationService(vrep_common::simRosStartSimulation
 	return true;
 }
 
-bool ROS_server::simRosStopSimulationService(vrep_common::simRosStopSimulation::Request &req,vrep_common::simRosStopSimulation::Response &res)
+bool ROS_server::simRosStopSimulationService(coppeliasim_msgs_srvs::simRosStopSimulation::Request &req,coppeliasim_msgs_srvs::simRosStopSimulation::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	res.result=simStopSimulation();
@@ -3615,7 +3615,7 @@ bool ROS_server::simRosStopSimulationService(vrep_common::simRosStopSimulation::
 	return true;
 }
 
-bool ROS_server::simRosSynchronousService(vrep_common::simRosSynchronous::Request &req,vrep_common::simRosSynchronous::Response &res)
+bool ROS_server::simRosSynchronousService(coppeliasim_msgs_srvs::simRosSynchronous::Request &req,coppeliasim_msgs_srvs::simRosSynchronous::Response &res)
 {
 	if (req.enable)
 	{
@@ -3628,7 +3628,7 @@ bool ROS_server::simRosSynchronousService(vrep_common::simRosSynchronous::Reques
 	return true;
 }
 
-bool ROS_server::simRosSynchronousTriggerService(vrep_common::simRosSynchronousTrigger::Request &req,vrep_common::simRosSynchronousTrigger::Response &res)
+bool ROS_server::simRosSynchronousTriggerService(coppeliasim_msgs_srvs::simRosSynchronousTrigger::Request &req,coppeliasim_msgs_srvs::simRosSynchronousTrigger::Response &res)
 {
 	if (_waitTriggerEnable)
 	{
@@ -3640,7 +3640,7 @@ bool ROS_server::simRosSynchronousTriggerService(vrep_common::simRosSynchronousT
 	return true;
 }
 
-bool ROS_server::simRosTransferFileService(vrep_common::simRosTransferFile::Request &req,vrep_common::simRosTransferFile::Response &res)
+bool ROS_server::simRosTransferFileService(coppeliasim_msgs_srvs::simRosTransferFile::Request &req,coppeliasim_msgs_srvs::simRosTransferFile::Response &res)
 {
 	res.result=-1;
 	FILE* file=fopen(req.fileName.c_str(),"wb");
@@ -3653,7 +3653,7 @@ bool ROS_server::simRosTransferFileService(vrep_common::simRosTransferFile::Requ
 	return true;
 }
 
-bool ROS_server::simRosEnablePublisherService(vrep_common::simRosEnablePublisher::Request &req,vrep_common::simRosEnablePublisher::Response &res)
+bool ROS_server::simRosEnablePublisherService(coppeliasim_msgs_srvs::simRosEnablePublisher::Request &req,coppeliasim_msgs_srvs::simRosEnablePublisher::Response &res)
 {
 	int simState=simGetSimulationState();
 	if (simState&sim_simulation_advancing)
@@ -3663,14 +3663,14 @@ bool ROS_server::simRosEnablePublisherService(vrep_common::simRosEnablePublisher
 	return true;
 }
 
-bool ROS_server::simRosDisablePublisherService(vrep_common::simRosDisablePublisher::Request &req,vrep_common::simRosDisablePublisher::Response &res)
+bool ROS_server::simRosDisablePublisherService(coppeliasim_msgs_srvs::simRosDisablePublisher::Request &req,coppeliasim_msgs_srvs::simRosDisablePublisher::Response &res)
 {
 	res.referenceCounter=removePublisher(req.topicName.c_str(),false);
 	return true;
 }
 
 
-bool ROS_server::simRosEnableSubscriberService(vrep_common::simRosEnableSubscriber::Request &req,vrep_common::simRosEnableSubscriber::Response &res)
+bool ROS_server::simRosEnableSubscriberService(coppeliasim_msgs_srvs::simRosEnableSubscriber::Request &req,coppeliasim_msgs_srvs::simRosEnableSubscriber::Response &res)
 {
 	int simState=simGetSimulationState();
 	if (simState&sim_simulation_advancing)
@@ -3680,13 +3680,13 @@ bool ROS_server::simRosEnableSubscriberService(vrep_common::simRosEnableSubscrib
 	return true;
 }
 
-bool ROS_server::simRosDisableSubscriberService(vrep_common::simRosDisableSubscriber::Request &req,vrep_common::simRosDisableSubscriber::Response &res)
+bool ROS_server::simRosDisableSubscriberService(coppeliasim_msgs_srvs::simRosDisableSubscriber::Request &req,coppeliasim_msgs_srvs::simRosDisableSubscriber::Response &res)
 {
 	res.result=removeSubscriber(req.subscriberID);
 	return true;
 }
 
-bool ROS_server::simRosSetJointStateService(vrep_common::simRosSetJointState::Request &req,vrep_common::simRosSetJointState::Response &res)
+bool ROS_server::simRosSetJointStateService(coppeliasim_msgs_srvs::simRosSetJointState::Request &req,coppeliasim_msgs_srvs::simRosSetJointState::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 
@@ -3726,7 +3726,7 @@ bool ROS_server::simRosSetJointStateService(vrep_common::simRosSetJointState::Re
 	return true;
 }
 
-bool ROS_server::simRosCreateDummyService(vrep_common::simRosCreateDummy::Request &req,vrep_common::simRosCreateDummy::Response &res)
+bool ROS_server::simRosCreateDummyService(coppeliasim_msgs_srvs::simRosCreateDummy::Request &req,coppeliasim_msgs_srvs::simRosCreateDummy::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	float* co=NULL;
@@ -3742,7 +3742,7 @@ bool ROS_server::simRosCreateDummyService(vrep_common::simRosCreateDummy::Reques
 	return true;
 }
 
-bool ROS_server::simRosGetAndClearStringSignalService(vrep_common::simRosGetAndClearStringSignal::Request &req,vrep_common::simRosGetAndClearStringSignal::Response &res)
+bool ROS_server::simRosGetAndClearStringSignalService(coppeliasim_msgs_srvs::simRosGetAndClearStringSignal::Request &req,coppeliasim_msgs_srvs::simRosGetAndClearStringSignal::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 	int signalLength;
@@ -3762,7 +3762,7 @@ bool ROS_server::simRosGetAndClearStringSignalService(vrep_common::simRosGetAndC
 	return true;
 }
 
-bool ROS_server::simRosGetObjectGroupDataService(vrep_common::simRosGetObjectGroupData::Request &req,vrep_common::simRosGetObjectGroupData::Response &res)
+bool ROS_server::simRosGetObjectGroupDataService(coppeliasim_msgs_srvs::simRosGetObjectGroupData::Request &req,coppeliasim_msgs_srvs::simRosGetObjectGroupData::Response &res)
 {
 	int errorModeSaved=_handleServiceErrors_start();
 
@@ -3786,7 +3786,7 @@ bool ROS_server::simRosGetObjectGroupDataService(vrep_common::simRosGetObjectGro
 	return true;
 }
 
-// bool ROS_server::simRosCallScriptFunctionService(vrep_common::simRosCallScriptFunction::Request &req,vrep_common::simRosCallScriptFunction::Response &res)
+// bool ROS_server::simRosCallScriptFunctionService(coppeliasim_msgs_srvs::simRosCallScriptFunction::Request &req,coppeliasim_msgs_srvs::simRosCallScriptFunction::Response &res)
 // {
 // 	int errorModeSaved=_handleServiceErrors_start();
 
