@@ -27,30 +27,9 @@ cd ..
 ```
 
 ### Running
-The generated plugin should be loaded while start coppeliasim, this can be done by copying the plugin 'libsimExtRosControl.so' to the main directory of Coppeliasim `$HOME/CoppeliaSim`
-```
-# Copy the generated plugin to CoppeliaSim directory
-cp  $HOME/catkin_ws/devel/lib/libsimExtRosControl.so  ~/CoppeliaSim/
-```
-In a new terminal start a ros master before you start CoppelliaSim
-```
-roscore
-```
-In a nother terminal run CoppeliaSim
-```
-# change to Coppeliasim dir 
-cd $HOME/CoppeliaSim
 
-# run Coppeliasim
-./coppeliaSim.sh
-```
-In the same terminal running Coppeliasim, you can see the following message indicating a successful loading of the RosControl plugin
-```
-Plugin 'RosControl': loading...
-[DEBUG] [1602118275.276717674]:  initialize MyRobot hardware_interface!
-Plugin 'RosControl': load succeeded.
-```
-By starting the simulation in coppeliasim, the plugin will wait for the robot description to be availabe in the parameter server.
+
+
 
 ### Example
 Refer to [ur5_coppeliasim_roscontrol][] package on how you can use the coppeliasim_ros_services plugin to control the simulation inside coppeliasim simulator using ros.
