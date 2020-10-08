@@ -26,7 +26,7 @@
 // along with the ROS PLUGIN.  If not, see <http://www.gnu.org/licenses/>.
 // -------------------------------------------------------------------
 //
-// This file was automatically created for V-REP release V3.3.0 on February 19th 2016
+// This file was updated for Coppeliasim release V4.0.0 
 
 #ifndef VREP_SUBSCRIBER_H
 #define VREP_SUBSCRIBER_H
@@ -49,13 +49,13 @@
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/Quaternion.h>
 #include <geometry_msgs/Twist.h>
-#include "vrep_common/VisionSensorDepthBuff.h"
-#include "vrep_common/ForceSensorData.h"
-#include "vrep_common/ProximitySensorData.h"
-#include "vrep_common/VisionSensorData.h"
-#include "vrep_common/VrepInfo.h"
-#include "vrep_common/JointSetStateData.h"
-// #include "vrep_common/ScriptFunctionCallData.h"
+#include "coppeliasim_msgs_srvs/VisionSensorDepthBuff.h"
+#include "coppeliasim_msgs_srvs/ForceSensorData.h"
+#include "coppeliasim_msgs_srvs/ProximitySensorData.h"
+#include "coppeliasim_msgs_srvs/VisionSensorData.h"
+#include "coppeliasim_msgs_srvs/VrepInfo.h"
+#include "coppeliasim_msgs_srvs/JointSetStateData.h"
+// #include "coppeliasim_msgs_srvs/ScriptFunctionCallData.h"
 //#include <trajectory_msgs/JointTrajectory.h>
 
 /*
@@ -134,8 +134,8 @@ public:
 	void setUISlider(const std_msgs::Int32::ConstPtr& pos);
 	void setVisionSensorImageCallback(const sensor_msgs::Image::ConstPtr& image);
 	void setJoySensorCallback(const sensor_msgs::Joy::ConstPtr& joyPacket); 
-	void setJointStateCallback(const vrep_common::JointSetStateData::ConstPtr& data);
-	// void callScriptFunctionCallback(const vrep_common::ScriptFunctionCallData::ConstPtr& data);
+	void setJointStateCallback(const coppeliasim_msgs_srvs::JointSetStateData::ConstPtr& data);
+	// void callScriptFunctionCallback(const coppeliasim_msgs_srvs::ScriptFunctionCallData::ConstPtr& data);
 //	void setJointTrajectoryCallback(const trajectory_msgs::JointTrajectory::ConstPtr& data);
 };
 
