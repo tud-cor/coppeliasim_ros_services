@@ -72,7 +72,8 @@ The plugin publishes two topics (clock and info), and many services. Here is an 
 
 - Loading a module: loading the [coppeliasim_ros_control][] module (file: libsimExtRosControl.so , name:RosControl)
 ```
-# service_request should conatins a path to module_file and module_name, service_response is an integer represents the pluginHandle /coppeliasim_ros_services/simRosLoadModule 'libsimExtRosControl.so' 'RosControl'
+# service_request should conatins a path to module_file and module_name, service_response is an integer represents the pluginHandle  
+rosservice call /coppeliasim_ros_services/simRosLoadModule  " fileName: ''  pluginName: '' " 
 ```
 
 For more information about all the services, check the [coppeliasim APIs][] page.
