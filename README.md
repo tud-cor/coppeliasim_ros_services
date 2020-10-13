@@ -67,7 +67,7 @@ The plugin publishes two topics (clock and info), and many services. Here is an 
 - starting the simulation
 ```
 # service_request is empty, service_response is an integer indicates successful operation 
- rosservice call /coppeliasim_ros_services/simRosStopSimulation
+ rosservice call /coppeliasim_ros_services/simRosStartSimulation
 ```
 
 - Loading a module: loading the [coppeliasim_ros_control][] module (file: libsimExtRosControl.so , name:RosControl)
