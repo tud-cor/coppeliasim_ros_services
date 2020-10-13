@@ -82,6 +82,12 @@ For more information about all the services, check the [coppeliasim APIs][] page
 Refer to [ur5_coppeliasim_roscontrol][] package on how you can use the `RosServices` plugin to control the simulation of a ur5_robot in coppeliasim.
 
 
+### video
+[![IMAGE](video.png)](https://www.youtube.com/watch?v=t0-VEyB9-0w&ab_channel=mahmoudali)
+
+
+
+
 [coppeliasim_ros_control]: https://github.com/tud-cor/coppeliasim_ros_control
 [coppeliasim_run]: https://github.com/mahmoud-a-ali/coppeliasim_run
 [coppeliasim_msgs_srvs]: https://github.com/mahmoud-a-ali/coppeliasim_msgs_srvs 
