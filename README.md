@@ -58,7 +58,7 @@ In a new terminal, you can check all the available services and topics offered a
 ```
 rosservice list
 ```
-- topics: two main topics published by the plugin are `/clock` and `/info`
+- topics: the two main topics published by the plugin are `/clock` and `/info`
 ```
 rostopic list
 ```
