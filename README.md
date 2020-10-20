@@ -1,5 +1,5 @@
 # coppeliasim_ros_services
-ROS-wrappers of the [coppeliasim APIs][]. A collection of rosservices-servers/publishers implemented based on the [coppeliasim APIs][]. These service-servers/publisher use of the msgs/srvs files defined in the [coppeliasim_msgs_srvs][] package. This package enables ros to control the simulation inside coppeliasim (e.g. start/stop the simulation, loading/unloading scenes/modules, ... etc), and it allows coppelisaim to publish important information about the simulation state (e.g. clock, simulation_state, time_step, simulation_time) on a ros-topic. 
+A collection of ROS services and publishers wrapping the [CoppeliaSim APIs][]. These services and publishers use the `.msg`s and `.srv`s files defined in the [coppeliasim_msgs_srvs][] package. This package enables ROS to control the simulation inside CoppeliaSim (e.g. start/stop the simulation, loading/unloading scenes/modules, ... etc), and it allows CoppeliaSim to publish important information about the simulation (e.g. clock, simulation_state, time_step, simulation_time) on ROS topics.
 
 ### Dependencies
 - [coppeliasim_msgs_srvs][]: contains the header files of the msgs/srvs used in this package.
