@@ -12,7 +12,7 @@ The following instructions assume that a Catkin workspace has been created at `$
 cd $HOME/catkin_ws/src
 
 # Clone coppeliasim_msgs_srvs pkg 
-git clone https://github.com/mahmoud-a-ali/coppeliasim_ros_services
+git clone https://github.com/tud-cor/coppeliasim_ros_services
 
 # change to the main Catkin workspace
 cd ..
