@@ -5,7 +5,7 @@
   <version>4.0.0</version>
   <author>Mahmoud</author>
   <license>GPLv3</license>
-  <url>https://github.com/mahmoud-a-ali/coppeliasim_ros_services</url>
+  <url>https://github.com/tud-cor/coppeliasim_ros_services</url>
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>std_msgs</build_depend>
@@ -32,5 +32,4 @@
   <run_depend>opencv2</run_depend>
 
 </package>
-
 
