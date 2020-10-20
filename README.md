@@ -1,114 +1,104 @@
-# **coppeliasim\_ros\_services**
-##### update of the vrep\_plugin to be compatible with coppeliasim_v4 and ros melodic
+# coppeliasim_ros_services
+A collection of ROS services and publishers wrapping the [CoppeliaSim APIs][]. These services and publishers use the `.msg`s and `.srv`s files defined in the [coppeliasim_msgs_srvs][] package. This package enables ROS to control the simulation inside CoppeliaSim (e.g. start/stop the simulation, loading/unloading scenes/modules, ... etc), and it allows CoppeliaSim to publish important information about the simulation (e.g. clock, simulation_state, time_step, simulation_time) on ROS topics.
+
+### Dependencies
+- [coppeliasim_msgs_srvs][]: contains the header files of the msgs/srvs used in this package.
+
+### Building 
+The following instructions assume that a Catkin workspace has been created at `$HOME/catkin_ws` and a CoppeliaSim directory is located in the directory `$HOME/CoppeliaSim`. You always can update the paths based on your machine setup.
+
+```bash
+# change to the src directory in your Catkin workspace
+cd $HOME/catkin_ws/src
+
+# Clone coppeliasim_msgs_srvs pkg 
+git clone https://github.com/tud-cor/coppeliasim_ros_services
+
+# change to the main Catkin workspace
+cd ..
+
+# build the workspace (using catkin_tools)
+ catkin build
+ 
+# After building, you can check if the plugin 'libsimExtRosServices.so' was successfuly created by listing the content of the devel/lib
+ls devel/lib/
+```
+
+### Running
+The generated plugin should be loaded while starting coppeliasim, this can be done by copying the plugin 'libsimExtRosServices.so' to the main directory of Coppeliasim `$HOME/CoppeliaSim`:
+```
+# Copy the generated plugin to CoppeliaSim directory
+cp  $HOME/catkin_ws/devel/lib/libsimExtRosServices.so  $HOME/CoppeliaSim/
+```
+In a new terminal start a ros master before you start CoppelliaSim:
+```
+roscore
+```
+In a nother terminal run CoppeliaSim:
+```
+# change to Coppeliasim dir 
+cd $HOME/CoppeliaSim
+
+# run Coppeliasim
+./coppeliaSim.sh
+```
+or you can launch coppeliasim using the [coppeliasim_run][] package:
+```
+rosrun coppeliasim_run start_coppeliasim
+```
+
+In the same terminal running Coppeliasim, you can see the following message indicating a successful loading of the `RosServices` plugin:
+```
+Plugin 'RosServices': loading...
+Plugin 'RosServices': load succeeded.
+```
+In new terminal, you can check all the available services/topics publised by the plugin:
+- services: all service related to the plugin will have `/coppeliasim_ros_services/` as a prefix
+```
+rosservice list
+```
+- topics: two main topics published by the plugin are `/clock` and `/info`
+```
+rostopic list
+```
+
+### Usage
+The plugin publishes two topics (clock and info), and many services. Here is an example of how you can use some of these services:
+- starting the simulation
+```
+# service_request is empty, service_response is an integer indicates successful operation 
+ rosservice call /coppeliasim_ros_services/simRosStartSimulation
+```
+
+- Loading a module: loading the [coppeliasim_ros_control][] module (file: libsimExtRosControl.so , name:RosControl)
+```
+# service_request should conatins a path to module_file and module_name, service_response is an integer represents the pluginHandle  
+rosservice call /coppeliasim_ros_services/simRosLoadModule  " fileName: ''  pluginName: '' " 
+```
+
+For more information about all the services, check the [coppeliasim APIs][] page.
 
 
-## **Description**
+### Example
+Refer to [ur5_coppeliasim_roscontrol][] package on how you can use the `RosServices` plugin to control the simulation of a ur5_robot in coppeliasim.
 
-##### Creates ros service server for many services -listed below- to allow remote-control of the simulation:
-* AddStatusbarMessage
-* AuxiliaryConsoleClose
-* AuxiliaryConsoleOpen
-* AuxiliaryConsolePrint
-* AuxiliaryConsoleShow
-* BreakForceSensor
-* ClearFloatSignal
-* ClearIntegerSignal
-* ClearStringSignal
-* CloseScene
-* CopyPasteObjects
-* CreateDummy
-* DisablePublisher
-* DisableSubscriber
-* DisplayDialog
-* EnablePublisher
-* EnableSubscriber
-* EndDialog
-* EraseFile
-* GetAndClearStringSignal
-* GetArrayParameter
-* GetBooleanParameter
-* GetCollisionHandle
-* GetDialogInput
-* GetDialogResult
-* GetDistanceHandle
-* GetFloatSignal
-* GetFloatingParameter
-* GetInfo
-* GetIntegerParameter
-* GetIntegerSignal
-* GetJointMatrix
-* GetJointState
-* GetLastErrors
-* GetModelProperty
-* GetObjectChild
-* GetObjectFloatParameter
-* GetObjectGroupData
-* GetObjectHandle
-* GetObjectIntParameter
-* GetObjectParent
-* GetObjectPose
-* GetObjectSelection
-* GetObjects
-* GetStringParameter
-* GetStringSignal
-* GetUIButtonProperty
-* GetUIEventButton
-* GetUIHandle
-* GetUISlider
-* GetVisionSensorDepthBuffer
-* GetVisionSensorImage
-* LoadModel
-* LoadScene
-* LoadUI
-* PauseSimulation
-* ReadCollision
-* ReadDistance
-* ReadForceSensor
-* ReadProximitySensor
-* ReadVisionSensor
-* RemoveModel
-* RemoveObject
-* RemoveUI
-* SetArrayParameter
-* SetBooleanParameter
-* SetFloatSignal
-* SetFloatingParameter
-* SetIntegerParameter
-* SetIntegerSignal
-* SetJointForce
-* SetJointPosition
-* SetJointState
-* SetJointTargetPosition
-* SetJointTargetVelocity
-* SetModelProperty
-* SetObjectFloatParameter
-* SetObjectIntParameter
-* SetObjectParent
-* SetObjectPose
-* SetObjectPosition
-* SetObjectQuaternion
-* SetObjectSelection
-* SetSphericalJointMatrix
-* SetStringSignal
-* SetUIButtonLabel
-* SetUIButtonProperty
-* SetUISlider
-* SetVisionSensorImage
-* StartSimulation
-* StopSimulation
-* Synchronous
-* ynchronousTrigger
-* TransferFile
-* LoadModule (load plugins - e.g. roscontrol plugin)
 
-### **Sample of Usage** 
-* Download this package in the _src_ folder of your ROS workspace
-* Compile the package
-* Copy the generated file "..devel/lib/libsimExtRosServices.so" to coppeliasim main folder 
-* Run ros master using roscore
-* Start Coppeliasim 
-* List all available services 
+### video
+[![IMAGE](video.png)](https://www.youtube.com/watch?v=t0-VEyB9-0w&ab_channel=mahmoudali)
 
-#### **Dependencies** 
-This package depends from the [vrep\_common](https://github.com/jocacace/vrep_common) package.
 
+
+
+[coppeliasim_ros_control]: https://github.com/tud-cor/coppeliasim_ros_control
+[coppeliasim_run]: https://github.com/mahmoud-a-ali/coppeliasim_run
+[coppeliasim_msgs_srvs]: https://github.com/mahmoud-a-ali/coppeliasim_msgs_srvs 
+[coppeliasim_ros_services]: https://github.com/mahmoud-a-ali/coppeliasim_ros_services
+[Coppeliasim_msgs_srvs]: https://github.com/mahmoud-a-ali/Coppeliasim_msgs_srvs
+[vrep_plugin]: https://github.com/jocacace/vrep_plugin
+[coppeliasim]: https://www.coppeliarobotics.com/
+[ur5_coppeliasim_roscontrol]: https://github.com/tud-cor/ur5_coppeliasim_roscontrol
+[simStartSimulation()]: https://www.coppeliarobotics.com/helpFiles/en/regularApi/simStartSimulation.htm
+ [simLoadScene()]: https://www.coppeliarobotics.com/helpFiles/en/regularApi/simLoadScene.htm
+[coppeliasim APIs]: https://www.coppeliarobotics.com/helpFiles/en/apiFunctionListCategory.htm
+[vrep_common]: https://github.com/jocacace/vrep_common
+[Jonathan Cacace]: http://wpage.unina.it/jonathan.cacace/

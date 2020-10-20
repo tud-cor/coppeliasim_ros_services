@@ -26,7 +26,7 @@
 // along with the ROS PLUGIN.  If not, see <http://www.gnu.org/licenses/>.
 // -------------------------------------------------------------------
 //
-// This file was automatically created for V-REP release V3.3.0 on February 19th 2016
+// This file was updated for Coppeliasim release V4.0.0 
 
 #include "simExtRosService/simExtRosSubscriber.h"
 #include "simLib/simLib.h"
@@ -687,7 +687,7 @@ void CSubscriberData::setJoySensorCallback(const sensor_msgs::Joy::ConstPtr& joy
 	}
 }
 
-void CSubscriberData::setJointStateCallback(const vrep_common::JointSetStateData::ConstPtr& data)
+void CSubscriberData::setJointStateCallback(const coppeliasim_msgs_srvs::JointSetStateData::ConstPtr& data)
 {
 	if (_handleGeneralCallback_before())
 	{
@@ -712,7 +712,7 @@ void CSubscriberData::setJointStateCallback(const vrep_common::JointSetStateData
 	}
 }
 
-// void CSubscriberData::callScriptFunctionCallback(const vrep_common::ScriptFunctionCallData::ConstPtr& data)
+// void CSubscriberData::callScriptFunctionCallback(const coppeliasim_msgs_srvs::ScriptFunctionCallData::ConstPtr& data)
 // {
 // 	if (_handleGeneralCallback_before())
 // 	{
