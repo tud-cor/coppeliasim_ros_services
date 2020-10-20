@@ -34,7 +34,10 @@ cmake_minimum_required(VERSION 2.8.3)
 project(coppeliasim_ros_services)
 
 find_package(catkin REQUIRED COMPONENTS
-  roscpp image_transport tf coppeliasim_msgs_srvs
+  coppeliasim_msgs_srvs
+  image_transport
+  roscpp
+  tf
 )
 
 find_package( OpenCV REQUIRED )
