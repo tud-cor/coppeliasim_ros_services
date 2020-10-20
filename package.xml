@@ -2,10 +2,8 @@
   <name>coppeliasim_ros_services</name>
   <description>coppeliasim_ros_services plugin</description>
   <maintainer email="mahmud.a.aly@gmail.com">Mahmoud</maintainer>
-  <maintainer email="marc@coppeliarobotics.com">Marc</maintainer> 
   <version>4.0.0</version>
-  <author email="mahmud.a.aly@gmail.com">Mahmoud</author>
-  <author email="marc@coppeliarobotics.com">Marc</author>
+  <author>Mahmoud</author>
   <license>GPLv3</license>
   <url>https://github.com/mahmoud-a-ali/coppeliasim_ros_services</url>
   <buildtool_depend>catkin</buildtool_depend>
