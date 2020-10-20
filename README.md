@@ -5,7 +5,7 @@ A collection of ROS services and publishers wrapping the [CoppeliaSim APIs][]. T
 - [coppeliasim_msgs_srvs][]: contains the header files of the msgs/srvs used in this package.
 
 ### Building 
-The following instructions assume that a catkin workspace has been created at `$HOME/catkin_ws` and Coppeliasim directory is placed at the Home directory `$HOME/CoppeliaSim`. you always can update the paths based on your machine setup.
+The following instructions assume that a Catkin workspace has been created at `$HOME/catkin_ws` and a CoppeliaSim directory is located in the directory `$HOME/CoppeliaSim`. You always can update the paths based on your machine setup.
 
 ```bash
 # change to the src directory in your Catkin workspace
