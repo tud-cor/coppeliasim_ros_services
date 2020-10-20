@@ -28,16 +28,13 @@
 # along with the ROS PLUGIN.  If not, see <http:#www.gnu.org/licenses/>.
 # -------------------------------------------------------------------
 #
-# This file was updated for Coppeliasim release V4.0.0 
+# This file was automatically created for V-REP release V3.3.0 on February 19th 2016
 
 cmake_minimum_required(VERSION 2.8.3)
 project(coppeliasim_ros_services)
 
 find_package(catkin REQUIRED COMPONENTS
-  coppeliasim_msgs_srvs
-  image_transport
-  roscpp
-  tf
+  roscpp image_transport tf vrep_common
 )
 
 find_package( OpenCV REQUIRED )

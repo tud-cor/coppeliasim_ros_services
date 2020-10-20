@@ -26,7 +26,7 @@
 // along with the ROS PLUGIN.  If not, see <http://www.gnu.org/licenses/>.
 // -------------------------------------------------------------------
 //
-// This file was updated for Coppeliasim release V4.0.0 
+// This file was automatically created for V-REP release V3.3.0 on February 19th 2016
 
 #ifndef ROS_SERVER_H
 #define ROS_SERVER_H
@@ -55,117 +55,117 @@
 #include <std_msgs/String.h>
 #include <geometry_msgs/Point32.h>
 #include <geometry_msgs/Quaternion.h>
-#include "coppeliasim_msgs_srvs/VisionSensorDepthBuff.h"
-#include "coppeliasim_msgs_srvs/ForceSensorData.h"
-#include "coppeliasim_msgs_srvs/ProximitySensorData.h"
-#include "coppeliasim_msgs_srvs/VisionSensorData.h"
-#include "coppeliasim_msgs_srvs/VrepInfo.h"
-#include "coppeliasim_msgs_srvs/ObjectGroupData.h"
-// #include "coppeliasim_msgs_srvs/ScriptFunctionCallData.h"
+#include "vrep_common/VisionSensorDepthBuff.h"
+#include "vrep_common/ForceSensorData.h"
+#include "vrep_common/ProximitySensorData.h"
+#include "vrep_common/VisionSensorData.h"
+#include "vrep_common/VrepInfo.h"
+#include "vrep_common/ObjectGroupData.h"
+// #include "vrep_common/ScriptFunctionCallData.h"
 
 // API services:
-#include "coppeliasim_msgs_srvs/simRosAddStatusbarMessage.h"
-#include "coppeliasim_msgs_srvs/simRosAuxiliaryConsoleClose.h"
-#include "coppeliasim_msgs_srvs/simRosAuxiliaryConsoleOpen.h"
-#include "coppeliasim_msgs_srvs/simRosAuxiliaryConsolePrint.h"
-#include "coppeliasim_msgs_srvs/simRosAuxiliaryConsoleShow.h"
-#include "coppeliasim_msgs_srvs/simRosBreakForceSensor.h"
-#include "coppeliasim_msgs_srvs/simRosClearFloatSignal.h"
-#include "coppeliasim_msgs_srvs/simRosClearIntegerSignal.h"
-#include "coppeliasim_msgs_srvs/simRosClearStringSignal.h"
-#include "coppeliasim_msgs_srvs/simRosCloseScene.h"
-#include "coppeliasim_msgs_srvs/simRosCopyPasteObjects.h"
-#include "coppeliasim_msgs_srvs/simRosDisplayDialog.h"
-#include "coppeliasim_msgs_srvs/simRosEndDialog.h"
-#include "coppeliasim_msgs_srvs/simRosEraseFile.h"
-#include "coppeliasim_msgs_srvs/simRosGetArrayParameter.h"
-#include "coppeliasim_msgs_srvs/simRosGetBooleanParameter.h"
-#include "coppeliasim_msgs_srvs/simRosGetCollisionHandle.h"
-// #include "coppeliasim_msgs_srvs/simRosGetCollectionHandle.h"
-#include "coppeliasim_msgs_srvs/simRosGetDialogInput.h"
-#include "coppeliasim_msgs_srvs/simRosGetDialogResult.h"
-#include "coppeliasim_msgs_srvs/simRosGetDistanceHandle.h"
-#include "coppeliasim_msgs_srvs/simRosGetFloatingParameter.h"
-#include "coppeliasim_msgs_srvs/simRosGetFloatSignal.h"
-#include "coppeliasim_msgs_srvs/simRosGetIntegerParameter.h"
-#include "coppeliasim_msgs_srvs/simRosGetIntegerSignal.h"
-#include "coppeliasim_msgs_srvs/simRosGetJointMatrix.h"
-#include "coppeliasim_msgs_srvs/simRosGetJointState.h"
-#include "coppeliasim_msgs_srvs/simRosGetLastErrors.h"
-#include "coppeliasim_msgs_srvs/simRosGetModelProperty.h"
-#include "coppeliasim_msgs_srvs/simRosGetObjectChild.h"
-#include "coppeliasim_msgs_srvs/simRosGetObjectFloatParameter.h"
-#include "coppeliasim_msgs_srvs/simRosGetObjectHandle.h"
-#include "coppeliasim_msgs_srvs/simRosGetObjectIntParameter.h"
-//#include "coppeliasim_msgs_srvs/simRosGetObjectOrientation.h"
-#include "coppeliasim_msgs_srvs/simRosGetObjectParent.h"
-//#include "coppeliasim_msgs_srvs/simRosGetObjectPosition.h"
-#include "coppeliasim_msgs_srvs/simRosGetObjectPose.h"
-#include "coppeliasim_msgs_srvs/simRosGetObjects.h"
-#include "coppeliasim_msgs_srvs/simRosGetObjectSelection.h"
-#include "coppeliasim_msgs_srvs/simRosGetStringParameter.h"
-#include "coppeliasim_msgs_srvs/simRosGetStringSignal.h"
-#include "coppeliasim_msgs_srvs/simRosGetUIButtonProperty.h"
-#include "coppeliasim_msgs_srvs/simRosGetUIEventButton.h"
-#include "coppeliasim_msgs_srvs/simRosGetUIHandle.h"
-#include "coppeliasim_msgs_srvs/simRosGetUISlider.h"
-#include "coppeliasim_msgs_srvs/simRosGetVisionSensorDepthBuffer.h"
-#include "coppeliasim_msgs_srvs/simRosGetVisionSensorImage.h"
-#include "coppeliasim_msgs_srvs/simRosLoadModule.h"
-#include "coppeliasim_msgs_srvs/simRosUnloadModule.h"
-#include "coppeliasim_msgs_srvs/simRosLoadModel.h"
-#include "coppeliasim_msgs_srvs/simRosLoadScene.h"
-#include "coppeliasim_msgs_srvs/simRosLoadUI.h"
-#include "coppeliasim_msgs_srvs/simRosPauseSimulation.h"
-#include "coppeliasim_msgs_srvs/simRosReadCollision.h"
-#include "coppeliasim_msgs_srvs/simRosReadDistance.h"
-#include "coppeliasim_msgs_srvs/simRosReadForceSensor.h"
-#include "coppeliasim_msgs_srvs/simRosReadProximitySensor.h"
-#include "coppeliasim_msgs_srvs/simRosReadVisionSensor.h"
-#include "coppeliasim_msgs_srvs/simRosRemoveObject.h"
-#include "coppeliasim_msgs_srvs/simRosRemoveModel.h"
-#include "coppeliasim_msgs_srvs/simRosRemoveUI.h"
-#include "coppeliasim_msgs_srvs/simRosSetArrayParameter.h"
-#include "coppeliasim_msgs_srvs/simRosSetBooleanParameter.h"
-#include "coppeliasim_msgs_srvs/simRosSetFloatingParameter.h"
-#include "coppeliasim_msgs_srvs/simRosSetFloatSignal.h"
-#include "coppeliasim_msgs_srvs/simRosSetIntegerParameter.h"
-#include "coppeliasim_msgs_srvs/simRosSetIntegerSignal.h"
-#include "coppeliasim_msgs_srvs/simRosSetJointForce.h"
-#include "coppeliasim_msgs_srvs/simRosSetJointPosition.h"
-#include "coppeliasim_msgs_srvs/simRosSetJointTargetPosition.h"
-#include "coppeliasim_msgs_srvs/simRosSetJointTargetVelocity.h"
-#include "coppeliasim_msgs_srvs/simRosSetModelProperty.h"
-#include "coppeliasim_msgs_srvs/simRosSetObjectFloatParameter.h"
-#include "coppeliasim_msgs_srvs/simRosSetObjectIntParameter.h"
-#include "coppeliasim_msgs_srvs/simRosSetObjectPose.h"
-#include "coppeliasim_msgs_srvs/simRosSetObjectParent.h"
-#include "coppeliasim_msgs_srvs/simRosSetObjectPosition.h"
-#include "coppeliasim_msgs_srvs/simRosSetObjectSelection.h"
-#include "coppeliasim_msgs_srvs/simRosGetInfo.h"
-#include "coppeliasim_msgs_srvs/simRosSetSphericalJointMatrix.h"
-#include "coppeliasim_msgs_srvs/simRosSetStringSignal.h"
-#include "coppeliasim_msgs_srvs/simRosAppendStringSignal.h"
-#include "coppeliasim_msgs_srvs/simRosSetUIButtonLabel.h"
-#include "coppeliasim_msgs_srvs/simRosSetUIButtonProperty.h"
-#include "coppeliasim_msgs_srvs/simRosSetUISlider.h"
-#include "coppeliasim_msgs_srvs/simRosSetVisionSensorImage.h"
-#include "coppeliasim_msgs_srvs/simRosStartSimulation.h"
-#include "coppeliasim_msgs_srvs/simRosStopSimulation.h"
-#include "coppeliasim_msgs_srvs/simRosSynchronous.h"
-#include "coppeliasim_msgs_srvs/simRosSynchronousTrigger.h"
-#include "coppeliasim_msgs_srvs/simRosTransferFile.h"
-#include "coppeliasim_msgs_srvs/simRosEnablePublisher.h"
-#include "coppeliasim_msgs_srvs/simRosDisablePublisher.h"
-//#include "coppeliasim_msgs_srvs/simRosGetObjectQuaternion.h"
-#include "coppeliasim_msgs_srvs/simRosSetObjectQuaternion.h"
-#include "coppeliasim_msgs_srvs/simRosEnableSubscriber.h"
-#include "coppeliasim_msgs_srvs/simRosDisableSubscriber.h"
-#include "coppeliasim_msgs_srvs/simRosSetJointState.h"
-#include "coppeliasim_msgs_srvs/simRosCreateDummy.h"
-#include "coppeliasim_msgs_srvs/simRosGetAndClearStringSignal.h"
-#include "coppeliasim_msgs_srvs/simRosGetObjectGroupData.h"
-// #include "coppeliasim_msgs_srvs/simRosCallScriptFunction.h"
+#include "vrep_common/simRosAddStatusbarMessage.h"
+#include "vrep_common/simRosAuxiliaryConsoleClose.h"
+#include "vrep_common/simRosAuxiliaryConsoleOpen.h"
+#include "vrep_common/simRosAuxiliaryConsolePrint.h"
+#include "vrep_common/simRosAuxiliaryConsoleShow.h"
+#include "vrep_common/simRosBreakForceSensor.h"
+#include "vrep_common/simRosClearFloatSignal.h"
+#include "vrep_common/simRosClearIntegerSignal.h"
+#include "vrep_common/simRosClearStringSignal.h"
+#include "vrep_common/simRosCloseScene.h"
+#include "vrep_common/simRosCopyPasteObjects.h"
+#include "vrep_common/simRosDisplayDialog.h"
+#include "vrep_common/simRosEndDialog.h"
+#include "vrep_common/simRosEraseFile.h"
+#include "vrep_common/simRosGetArrayParameter.h"
+#include "vrep_common/simRosGetBooleanParameter.h"
+#include "vrep_common/simRosGetCollisionHandle.h"
+// #include "vrep_common/simRosGetCollectionHandle.h"
+#include "vrep_common/simRosGetDialogInput.h"
+#include "vrep_common/simRosGetDialogResult.h"
+#include "vrep_common/simRosGetDistanceHandle.h"
+#include "vrep_common/simRosGetFloatingParameter.h"
+#include "vrep_common/simRosGetFloatSignal.h"
+#include "vrep_common/simRosGetIntegerParameter.h"
+#include "vrep_common/simRosGetIntegerSignal.h"
+#include "vrep_common/simRosGetJointMatrix.h"
+#include "vrep_common/simRosGetJointState.h"
+#include "vrep_common/simRosGetLastErrors.h"
+#include "vrep_common/simRosGetModelProperty.h"
+#include "vrep_common/simRosGetObjectChild.h"
+#include "vrep_common/simRosGetObjectFloatParameter.h"
+#include "vrep_common/simRosGetObjectHandle.h"
+#include "vrep_common/simRosGetObjectIntParameter.h"
+//#include "vrep_common/simRosGetObjectOrientation.h"
+#include "vrep_common/simRosGetObjectParent.h"
+//#include "vrep_common/simRosGetObjectPosition.h"
+#include "vrep_common/simRosGetObjectPose.h"
+#include "vrep_common/simRosGetObjects.h"
+#include "vrep_common/simRosGetObjectSelection.h"
+#include "vrep_common/simRosGetStringParameter.h"
+#include "vrep_common/simRosGetStringSignal.h"
+#include "vrep_common/simRosGetUIButtonProperty.h"
+#include "vrep_common/simRosGetUIEventButton.h"
+#include "vrep_common/simRosGetUIHandle.h"
+#include "vrep_common/simRosGetUISlider.h"
+#include "vrep_common/simRosGetVisionSensorDepthBuffer.h"
+#include "vrep_common/simRosGetVisionSensorImage.h"
+#include "vrep_common/simRosLoadModule.h"
+#include "vrep_common/simRosUnloadModule.h"
+#include "vrep_common/simRosLoadModel.h"
+#include "vrep_common/simRosLoadScene.h"
+#include "vrep_common/simRosLoadUI.h"
+#include "vrep_common/simRosPauseSimulation.h"
+#include "vrep_common/simRosReadCollision.h"
+#include "vrep_common/simRosReadDistance.h"
+#include "vrep_common/simRosReadForceSensor.h"
+#include "vrep_common/simRosReadProximitySensor.h"
+#include "vrep_common/simRosReadVisionSensor.h"
+#include "vrep_common/simRosRemoveObject.h"
+#include "vrep_common/simRosRemoveModel.h"
+#include "vrep_common/simRosRemoveUI.h"
+#include "vrep_common/simRosSetArrayParameter.h"
+#include "vrep_common/simRosSetBooleanParameter.h"
+#include "vrep_common/simRosSetFloatingParameter.h"
+#include "vrep_common/simRosSetFloatSignal.h"
+#include "vrep_common/simRosSetIntegerParameter.h"
+#include "vrep_common/simRosSetIntegerSignal.h"
+#include "vrep_common/simRosSetJointForce.h"
+#include "vrep_common/simRosSetJointPosition.h"
+#include "vrep_common/simRosSetJointTargetPosition.h"
+#include "vrep_common/simRosSetJointTargetVelocity.h"
+#include "vrep_common/simRosSetModelProperty.h"
+#include "vrep_common/simRosSetObjectFloatParameter.h"
+#include "vrep_common/simRosSetObjectIntParameter.h"
+#include "vrep_common/simRosSetObjectPose.h"
+#include "vrep_common/simRosSetObjectParent.h"
+#include "vrep_common/simRosSetObjectPosition.h"
+#include "vrep_common/simRosSetObjectSelection.h"
+#include "vrep_common/simRosGetInfo.h"
+#include "vrep_common/simRosSetSphericalJointMatrix.h"
+#include "vrep_common/simRosSetStringSignal.h"
+#include "vrep_common/simRosAppendStringSignal.h"
+#include "vrep_common/simRosSetUIButtonLabel.h"
+#include "vrep_common/simRosSetUIButtonProperty.h"
+#include "vrep_common/simRosSetUISlider.h"
+#include "vrep_common/simRosSetVisionSensorImage.h"
+#include "vrep_common/simRosStartSimulation.h"
+#include "vrep_common/simRosStopSimulation.h"
+#include "vrep_common/simRosSynchronous.h"
+#include "vrep_common/simRosSynchronousTrigger.h"
+#include "vrep_common/simRosTransferFile.h"
+#include "vrep_common/simRosEnablePublisher.h"
+#include "vrep_common/simRosDisablePublisher.h"
+//#include "vrep_common/simRosGetObjectQuaternion.h"
+#include "vrep_common/simRosSetObjectQuaternion.h"
+#include "vrep_common/simRosEnableSubscriber.h"
+#include "vrep_common/simRosDisableSubscriber.h"
+#include "vrep_common/simRosSetJointState.h"
+#include "vrep_common/simRosCreateDummy.h"
+#include "vrep_common/simRosGetAndClearStringSignal.h"
+#include "vrep_common/simRosGetObjectGroupData.h"
+// #include "vrep_common/simRosCallScriptFunction.h"
 
 class SSpecificPublisherData 
 {
@@ -255,310 +255,310 @@ class ROS_server
 		//===================================================================================================
 
 		static ros::ServiceServer simRosAddStatusbarMessageServer;
-		static bool simRosAddStatusbarMessageService(coppeliasim_msgs_srvs::simRosAddStatusbarMessage::Request &req,coppeliasim_msgs_srvs::simRosAddStatusbarMessage::Response &res);
+		static bool simRosAddStatusbarMessageService(vrep_common::simRosAddStatusbarMessage::Request &req,vrep_common::simRosAddStatusbarMessage::Response &res);
 
 		static ros::ServiceServer simRosAuxiliaryConsoleCloseServer;
-		static bool simRosAuxiliaryConsoleCloseService(coppeliasim_msgs_srvs::simRosAuxiliaryConsoleClose::Request &req,coppeliasim_msgs_srvs::simRosAuxiliaryConsoleClose::Response &res);
+		static bool simRosAuxiliaryConsoleCloseService(vrep_common::simRosAuxiliaryConsoleClose::Request &req,vrep_common::simRosAuxiliaryConsoleClose::Response &res);
 
 		static ros::ServiceServer simRosAuxiliaryConsoleOpenServer;
-		static bool simRosAuxiliaryConsoleOpenService(coppeliasim_msgs_srvs::simRosAuxiliaryConsoleOpen::Request &req,coppeliasim_msgs_srvs::simRosAuxiliaryConsoleOpen::Response &res);
+		static bool simRosAuxiliaryConsoleOpenService(vrep_common::simRosAuxiliaryConsoleOpen::Request &req,vrep_common::simRosAuxiliaryConsoleOpen::Response &res);
 
 		static ros::ServiceServer simRosAuxiliaryConsolePrintServer;
-		static bool simRosAuxiliaryConsolePrintService(coppeliasim_msgs_srvs::simRosAuxiliaryConsolePrint::Request &req,coppeliasim_msgs_srvs::simRosAuxiliaryConsolePrint::Response &res);
+		static bool simRosAuxiliaryConsolePrintService(vrep_common::simRosAuxiliaryConsolePrint::Request &req,vrep_common::simRosAuxiliaryConsolePrint::Response &res);
 
 		static ros::ServiceServer simRosAuxiliaryConsoleShowServer;
-		static bool simRosAuxiliaryConsoleShowService(coppeliasim_msgs_srvs::simRosAuxiliaryConsoleShow::Request &req,coppeliasim_msgs_srvs::simRosAuxiliaryConsoleShow::Response &res);
+		static bool simRosAuxiliaryConsoleShowService(vrep_common::simRosAuxiliaryConsoleShow::Request &req,vrep_common::simRosAuxiliaryConsoleShow::Response &res);
 
 		static ros::ServiceServer simRosBreakForceSensorServer;
-		static bool simRosBreakForceSensorService(coppeliasim_msgs_srvs::simRosBreakForceSensor::Request &req,coppeliasim_msgs_srvs::simRosBreakForceSensor::Response &res);
+		static bool simRosBreakForceSensorService(vrep_common::simRosBreakForceSensor::Request &req,vrep_common::simRosBreakForceSensor::Response &res);
 
 		static ros::ServiceServer simRosClearFloatSignalServer;
-		static bool simRosClearFloatSignalService(coppeliasim_msgs_srvs::simRosClearFloatSignal::Request &req,coppeliasim_msgs_srvs::simRosClearFloatSignal::Response &res);
+		static bool simRosClearFloatSignalService(vrep_common::simRosClearFloatSignal::Request &req,vrep_common::simRosClearFloatSignal::Response &res);
 
 		static ros::ServiceServer simRosClearIntegerSignalServer;
-		static bool simRosClearIntegerSignalService(coppeliasim_msgs_srvs::simRosClearIntegerSignal::Request &req,coppeliasim_msgs_srvs::simRosClearIntegerSignal::Response &res);
+		static bool simRosClearIntegerSignalService(vrep_common::simRosClearIntegerSignal::Request &req,vrep_common::simRosClearIntegerSignal::Response &res);
 
 		static ros::ServiceServer simRosClearStringSignalServer;
-		static bool simRosClearStringSignalService(coppeliasim_msgs_srvs::simRosClearStringSignal::Request &req,coppeliasim_msgs_srvs::simRosClearStringSignal::Response &res);
+		static bool simRosClearStringSignalService(vrep_common::simRosClearStringSignal::Request &req,vrep_common::simRosClearStringSignal::Response &res);
 
 		static ros::ServiceServer simRosCloseSceneServer;
-		static bool simRosCloseSceneService(coppeliasim_msgs_srvs::simRosCloseScene::Request &req,coppeliasim_msgs_srvs::simRosCloseScene::Response &res);
+		static bool simRosCloseSceneService(vrep_common::simRosCloseScene::Request &req,vrep_common::simRosCloseScene::Response &res);
 
 		static ros::ServiceServer simRosCopyPasteObjectsServer;
-		static bool simRosCopyPasteObjectsService(coppeliasim_msgs_srvs::simRosCopyPasteObjects::Request &req,coppeliasim_msgs_srvs::simRosCopyPasteObjects::Response &res);
+		static bool simRosCopyPasteObjectsService(vrep_common::simRosCopyPasteObjects::Request &req,vrep_common::simRosCopyPasteObjects::Response &res);
 
 		static ros::ServiceServer simRosDisplayDialogServer;
-		static bool simRosDisplayDialogService(coppeliasim_msgs_srvs::simRosDisplayDialog::Request &req,coppeliasim_msgs_srvs::simRosDisplayDialog::Response &res);
+		static bool simRosDisplayDialogService(vrep_common::simRosDisplayDialog::Request &req,vrep_common::simRosDisplayDialog::Response &res);
 
 		static ros::ServiceServer simRosEndDialogServer;
-		static bool simRosEndDialogService(coppeliasim_msgs_srvs::simRosEndDialog::Request &req,coppeliasim_msgs_srvs::simRosEndDialog::Response &res);
+		static bool simRosEndDialogService(vrep_common::simRosEndDialog::Request &req,vrep_common::simRosEndDialog::Response &res);
 
 		static ros::ServiceServer simRosEraseFileServer;
-		static bool simRosEraseFileService(coppeliasim_msgs_srvs::simRosEraseFile::Request &req,coppeliasim_msgs_srvs::simRosEraseFile::Response &res);
+		static bool simRosEraseFileService(vrep_common::simRosEraseFile::Request &req,vrep_common::simRosEraseFile::Response &res);
 
 		static ros::ServiceServer simRosGetArrayParameterServer;
-		static bool simRosGetArrayParameterService(coppeliasim_msgs_srvs::simRosGetArrayParameter::Request &req,coppeliasim_msgs_srvs::simRosGetArrayParameter::Response &res);
+		static bool simRosGetArrayParameterService(vrep_common::simRosGetArrayParameter::Request &req,vrep_common::simRosGetArrayParameter::Response &res);
 
 		static ros::ServiceServer simRosGetBooleanParameterServer;
-		static bool simRosGetBooleanParameterService(coppeliasim_msgs_srvs::simRosGetBooleanParameter::Request &req,coppeliasim_msgs_srvs::simRosGetBooleanParameter::Response &res);
+		static bool simRosGetBooleanParameterService(vrep_common::simRosGetBooleanParameter::Request &req,vrep_common::simRosGetBooleanParameter::Response &res);
 
 		static ros::ServiceServer simRosGetCollisionHandleServer;
-		static bool simRosGetCollisionHandleService(coppeliasim_msgs_srvs::simRosGetCollisionHandle::Request &req,coppeliasim_msgs_srvs::simRosGetCollisionHandle::Response &res);
+		static bool simRosGetCollisionHandleService(vrep_common::simRosGetCollisionHandle::Request &req,vrep_common::simRosGetCollisionHandle::Response &res);
 
 		// static ros::ServiceServer simRosGetCollectionHandleServer;
-		// static bool simRosGetCollectionHandleService(coppeliasim_msgs_srvs::simRosGetCollectionHandle::Request &req,coppeliasim_msgs_srvs::simRosGetCollectionHandle::Response &res);
+		// static bool simRosGetCollectionHandleService(vrep_common::simRosGetCollectionHandle::Request &req,vrep_common::simRosGetCollectionHandle::Response &res);
 
 		static ros::ServiceServer simRosGetDialogInputServer;
-		static bool simRosGetDialogInputService(coppeliasim_msgs_srvs::simRosGetDialogInput::Request &req,coppeliasim_msgs_srvs::simRosGetDialogInput::Response &res);
+		static bool simRosGetDialogInputService(vrep_common::simRosGetDialogInput::Request &req,vrep_common::simRosGetDialogInput::Response &res);
 
 		static ros::ServiceServer simRosGetDialogResultServer;
-		static bool simRosGetDialogResultService(coppeliasim_msgs_srvs::simRosGetDialogResult::Request &req,coppeliasim_msgs_srvs::simRosGetDialogResult::Response &res);
+		static bool simRosGetDialogResultService(vrep_common::simRosGetDialogResult::Request &req,vrep_common::simRosGetDialogResult::Response &res);
 
 		static ros::ServiceServer simRosGetDistanceHandleServer;
-		static bool simRosGetDistanceHandleService(coppeliasim_msgs_srvs::simRosGetDistanceHandle::Request &req,coppeliasim_msgs_srvs::simRosGetDistanceHandle::Response &res);
+		static bool simRosGetDistanceHandleService(vrep_common::simRosGetDistanceHandle::Request &req,vrep_common::simRosGetDistanceHandle::Response &res);
 
 		static ros::ServiceServer simRosGetFloatingParameterServer;
-		static bool simRosGetFloatingParameterService(coppeliasim_msgs_srvs::simRosGetFloatingParameter::Request &req,coppeliasim_msgs_srvs::simRosGetFloatingParameter::Response &res);
+		static bool simRosGetFloatingParameterService(vrep_common::simRosGetFloatingParameter::Request &req,vrep_common::simRosGetFloatingParameter::Response &res);
 
 		static ros::ServiceServer simRosGetFloatSignalServer;
-		static bool simRosGetFloatSignalService(coppeliasim_msgs_srvs::simRosGetFloatSignal::Request &req,coppeliasim_msgs_srvs::simRosGetFloatSignal::Response &res);
+		static bool simRosGetFloatSignalService(vrep_common::simRosGetFloatSignal::Request &req,vrep_common::simRosGetFloatSignal::Response &res);
 
 		static ros::ServiceServer simRosGetIntegerParameterServer;
-		static bool simRosGetIntegerParameterService(coppeliasim_msgs_srvs::simRosGetIntegerParameter::Request &req,coppeliasim_msgs_srvs::simRosGetIntegerParameter::Response &res);
+		static bool simRosGetIntegerParameterService(vrep_common::simRosGetIntegerParameter::Request &req,vrep_common::simRosGetIntegerParameter::Response &res);
 
 		static ros::ServiceServer simRosGetIntegerSignalServer;
-		static bool simRosGetIntegerSignalService(coppeliasim_msgs_srvs::simRosGetIntegerSignal::Request &req,coppeliasim_msgs_srvs::simRosGetIntegerSignal::Response &res);
+		static bool simRosGetIntegerSignalService(vrep_common::simRosGetIntegerSignal::Request &req,vrep_common::simRosGetIntegerSignal::Response &res);
 
 		static ros::ServiceServer simRosGetJointMatrixServer;
-		static bool simRosGetJointMatrixService(coppeliasim_msgs_srvs::simRosGetJointMatrix::Request &req,coppeliasim_msgs_srvs::simRosGetJointMatrix::Response &res);
+		static bool simRosGetJointMatrixService(vrep_common::simRosGetJointMatrix::Request &req,vrep_common::simRosGetJointMatrix::Response &res);
 
 		static ros::ServiceServer simRosGetJointStateServer;
-		static bool simRosGetJointStateService(coppeliasim_msgs_srvs::simRosGetJointState::Request &req,coppeliasim_msgs_srvs::simRosGetJointState::Response &res);
+		static bool simRosGetJointStateService(vrep_common::simRosGetJointState::Request &req,vrep_common::simRosGetJointState::Response &res);
 
 		static ros::ServiceServer simRosGetLastErrorsServer;
-		static bool simRosGetLastErrorsService(coppeliasim_msgs_srvs::simRosGetLastErrors::Request &req,coppeliasim_msgs_srvs::simRosGetLastErrors::Response &res);
+		static bool simRosGetLastErrorsService(vrep_common::simRosGetLastErrors::Request &req,vrep_common::simRosGetLastErrors::Response &res);
 
 		static ros::ServiceServer simRosGetModelPropertyServer;
-		static bool simRosGetModelPropertyService(coppeliasim_msgs_srvs::simRosGetModelProperty::Request &req,coppeliasim_msgs_srvs::simRosGetModelProperty::Response &res);
+		static bool simRosGetModelPropertyService(vrep_common::simRosGetModelProperty::Request &req,vrep_common::simRosGetModelProperty::Response &res);
 
 		static ros::ServiceServer simRosGetObjectChildServer;
-		static bool simRosGetObjectChildService(coppeliasim_msgs_srvs::simRosGetObjectChild::Request &req,coppeliasim_msgs_srvs::simRosGetObjectChild::Response &res);
+		static bool simRosGetObjectChildService(vrep_common::simRosGetObjectChild::Request &req,vrep_common::simRosGetObjectChild::Response &res);
 
 		static ros::ServiceServer simRosGetObjectFloatParameterServer;
-		static bool simRosGetObjectFloatParameterService(coppeliasim_msgs_srvs::simRosGetObjectFloatParameter::Request &req,coppeliasim_msgs_srvs::simRosGetObjectFloatParameter::Response &res);
+		static bool simRosGetObjectFloatParameterService(vrep_common::simRosGetObjectFloatParameter::Request &req,vrep_common::simRosGetObjectFloatParameter::Response &res);
 
 		static ros::ServiceServer simRosGetObjectHandleServer;
-		static bool simRosGetObjectHandleService(coppeliasim_msgs_srvs::simRosGetObjectHandle::Request &req,coppeliasim_msgs_srvs::simRosGetObjectHandle::Response &res);
+		static bool simRosGetObjectHandleService(vrep_common::simRosGetObjectHandle::Request &req,vrep_common::simRosGetObjectHandle::Response &res);
 
 		static ros::ServiceServer simRosGetObjectIntParameterServer;
-		static bool simRosGetObjectIntParameterService(coppeliasim_msgs_srvs::simRosGetObjectIntParameter::Request &req,coppeliasim_msgs_srvs::simRosGetObjectIntParameter::Response &res);
+		static bool simRosGetObjectIntParameterService(vrep_common::simRosGetObjectIntParameter::Request &req,vrep_common::simRosGetObjectIntParameter::Response &res);
 
 //		static ros::ServiceServer simRosGetObjectOrientationServer;
-//		static bool simRosGetObjectOrientationService(coppeliasim_msgs_srvs::simRosGetObjectOrientation::Request &req,coppeliasim_msgs_srvs::simRosGetObjectOrientation::Response &res);
+//		static bool simRosGetObjectOrientationService(vrep_common::simRosGetObjectOrientation::Request &req,vrep_common::simRosGetObjectOrientation::Response &res);
 
 		static ros::ServiceServer simRosGetObjectParentServer;
-		static bool simRosGetObjectParentService(coppeliasim_msgs_srvs::simRosGetObjectParent::Request &req,coppeliasim_msgs_srvs::simRosGetObjectParent::Response &res);
+		static bool simRosGetObjectParentService(vrep_common::simRosGetObjectParent::Request &req,vrep_common::simRosGetObjectParent::Response &res);
 
 //		static ros::ServiceServer simRosGetObjectPositionServer;
-//		static bool simRosGetObjectPositionService(coppeliasim_msgs_srvs::simRosGetObjectPosition::Request &req,coppeliasim_msgs_srvs::simRosGetObjectPosition::Response &res);
+//		static bool simRosGetObjectPositionService(vrep_common::simRosGetObjectPosition::Request &req,vrep_common::simRosGetObjectPosition::Response &res);
 
 		static ros::ServiceServer simRosGetObjectPoseServer;
-		static bool simRosGetObjectPoseService(coppeliasim_msgs_srvs::simRosGetObjectPose::Request &req,coppeliasim_msgs_srvs::simRosGetObjectPose::Response &res);
+		static bool simRosGetObjectPoseService(vrep_common::simRosGetObjectPose::Request &req,vrep_common::simRosGetObjectPose::Response &res);
 
 		static ros::ServiceServer simRosGetObjectsServer;
-		static bool simRosGetObjectsService(coppeliasim_msgs_srvs::simRosGetObjects::Request &req,coppeliasim_msgs_srvs::simRosGetObjects::Response &res);
+		static bool simRosGetObjectsService(vrep_common::simRosGetObjects::Request &req,vrep_common::simRosGetObjects::Response &res);
 
 		static ros::ServiceServer simRosGetObjectSelectionServer;
-		static bool simRosGetObjectSelectionService(coppeliasim_msgs_srvs::simRosGetObjectSelection::Request &req,coppeliasim_msgs_srvs::simRosGetObjectSelection::Response &res);
+		static bool simRosGetObjectSelectionService(vrep_common::simRosGetObjectSelection::Request &req,vrep_common::simRosGetObjectSelection::Response &res);
 
 		static ros::ServiceServer simRosGetStringParameterServer;
-		static bool simRosGetStringParameterService(coppeliasim_msgs_srvs::simRosGetStringParameter::Request &req,coppeliasim_msgs_srvs::simRosGetStringParameter::Response &res);
+		static bool simRosGetStringParameterService(vrep_common::simRosGetStringParameter::Request &req,vrep_common::simRosGetStringParameter::Response &res);
 
 		static ros::ServiceServer simRosGetStringSignalServer;
-		static bool simRosGetStringSignalService(coppeliasim_msgs_srvs::simRosGetStringSignal::Request &req,coppeliasim_msgs_srvs::simRosGetStringSignal::Response &res);
+		static bool simRosGetStringSignalService(vrep_common::simRosGetStringSignal::Request &req,vrep_common::simRosGetStringSignal::Response &res);
 
 		static ros::ServiceServer simRosGetUIButtonPropertyServer;
-		static bool simRosGetUIButtonPropertyService(coppeliasim_msgs_srvs::simRosGetUIButtonProperty::Request &req,coppeliasim_msgs_srvs::simRosGetUIButtonProperty::Response &res);
+		static bool simRosGetUIButtonPropertyService(vrep_common::simRosGetUIButtonProperty::Request &req,vrep_common::simRosGetUIButtonProperty::Response &res);
 
 		static ros::ServiceServer simRosGetUIEventButtonServer;
-		static bool simRosGetUIEventButtonService(coppeliasim_msgs_srvs::simRosGetUIEventButton::Request &req,coppeliasim_msgs_srvs::simRosGetUIEventButton::Response &res);
+		static bool simRosGetUIEventButtonService(vrep_common::simRosGetUIEventButton::Request &req,vrep_common::simRosGetUIEventButton::Response &res);
 
 		static ros::ServiceServer simRosGetUIHandleServer;
-		static bool simRosGetUIHandleService(coppeliasim_msgs_srvs::simRosGetUIHandle::Request &req,coppeliasim_msgs_srvs::simRosGetUIHandle::Response &res);
+		static bool simRosGetUIHandleService(vrep_common::simRosGetUIHandle::Request &req,vrep_common::simRosGetUIHandle::Response &res);
 
 		static ros::ServiceServer simRosGetUISliderServer;
-		static bool simRosGetUISliderService(coppeliasim_msgs_srvs::simRosGetUISlider::Request &req,coppeliasim_msgs_srvs::simRosGetUISlider::Response &res);
+		static bool simRosGetUISliderService(vrep_common::simRosGetUISlider::Request &req,vrep_common::simRosGetUISlider::Response &res);
 
 		static ros::ServiceServer simRosGetVisionSensorDepthBufferServer;
-		static bool simRosGetVisionSensorDepthBufferService(coppeliasim_msgs_srvs::simRosGetVisionSensorDepthBuffer::Request &req,coppeliasim_msgs_srvs::simRosGetVisionSensorDepthBuffer::Response &res);
+		static bool simRosGetVisionSensorDepthBufferService(vrep_common::simRosGetVisionSensorDepthBuffer::Request &req,vrep_common::simRosGetVisionSensorDepthBuffer::Response &res);
 
 		static ros::ServiceServer simRosGetVisionSensorImageServer;
-		static bool simRosGetVisionSensorImageService(coppeliasim_msgs_srvs::simRosGetVisionSensorImage::Request &req,coppeliasim_msgs_srvs::simRosGetVisionSensorImage::Response &res);
+		static bool simRosGetVisionSensorImageService(vrep_common::simRosGetVisionSensorImage::Request &req,vrep_common::simRosGetVisionSensorImage::Response &res);
 
 		static ros::ServiceServer simRosLoadModelServer;
-		static bool simRosLoadModelService(coppeliasim_msgs_srvs::simRosLoadModel::Request &req,coppeliasim_msgs_srvs::simRosLoadModel::Response &res);
+		static bool simRosLoadModelService(vrep_common::simRosLoadModel::Request &req,vrep_common::simRosLoadModel::Response &res);
 
 		static ros::ServiceServer simRosLoadSceneServer;
-		static bool simRosLoadSceneService(coppeliasim_msgs_srvs::simRosLoadScene::Request &req,coppeliasim_msgs_srvs::simRosLoadScene::Response &res);
+		static bool simRosLoadSceneService(vrep_common::simRosLoadScene::Request &req,vrep_common::simRosLoadScene::Response &res);
 
 		static ros::ServiceServer simRosLoadUIServer;
-		static bool simRosLoadUIService(coppeliasim_msgs_srvs::simRosLoadUI::Request &req,coppeliasim_msgs_srvs::simRosLoadUI::Response &res);
+		static bool simRosLoadUIService(vrep_common::simRosLoadUI::Request &req,vrep_common::simRosLoadUI::Response &res);
 
 		static ros::ServiceServer simRosPauseSimulationServer;
-		static bool simRosPauseSimulationService(coppeliasim_msgs_srvs::simRosPauseSimulation::Request &req,coppeliasim_msgs_srvs::simRosPauseSimulation::Response &res);
+		static bool simRosPauseSimulationService(vrep_common::simRosPauseSimulation::Request &req,vrep_common::simRosPauseSimulation::Response &res);
 
 		static ros::ServiceServer simRosReadCollisionServer;
-		static bool simRosReadCollisionService(coppeliasim_msgs_srvs::simRosReadCollision::Request &req,coppeliasim_msgs_srvs::simRosReadCollision::Response &res);
+		static bool simRosReadCollisionService(vrep_common::simRosReadCollision::Request &req,vrep_common::simRosReadCollision::Response &res);
 
 		static ros::ServiceServer simRosReadDistanceServer;
-		static bool simRosReadDistanceService(coppeliasim_msgs_srvs::simRosReadDistance::Request &req,coppeliasim_msgs_srvs::simRosReadDistance::Response &res);
+		static bool simRosReadDistanceService(vrep_common::simRosReadDistance::Request &req,vrep_common::simRosReadDistance::Response &res);
 
 		static ros::ServiceServer simRosReadForceSensorServer;
-		static bool simRosReadForceSensorService(coppeliasim_msgs_srvs::simRosReadForceSensor::Request &req,coppeliasim_msgs_srvs::simRosReadForceSensor::Response &res);
+		static bool simRosReadForceSensorService(vrep_common::simRosReadForceSensor::Request &req,vrep_common::simRosReadForceSensor::Response &res);
 
 		static ros::ServiceServer simRosReadProximitySensorServer;
-		static bool simRosReadProximitySensorService(coppeliasim_msgs_srvs::simRosReadProximitySensor::Request &req,coppeliasim_msgs_srvs::simRosReadProximitySensor::Response &res);
+		static bool simRosReadProximitySensorService(vrep_common::simRosReadProximitySensor::Request &req,vrep_common::simRosReadProximitySensor::Response &res);
 
 		static ros::ServiceServer simRosReadVisionSensorServer;
-		static bool simRosReadVisionSensorService(coppeliasim_msgs_srvs::simRosReadVisionSensor::Request &req,coppeliasim_msgs_srvs::simRosReadVisionSensor::Response &res);
+		static bool simRosReadVisionSensorService(vrep_common::simRosReadVisionSensor::Request &req,vrep_common::simRosReadVisionSensor::Response &res);
 
 		static ros::ServiceServer simRosRemoveObjectServer;
-		static bool simRosRemoveObjectService(coppeliasim_msgs_srvs::simRosRemoveObject::Request &req,coppeliasim_msgs_srvs::simRosRemoveObject::Response &res);
+		static bool simRosRemoveObjectService(vrep_common::simRosRemoveObject::Request &req,vrep_common::simRosRemoveObject::Response &res);
 
 		static ros::ServiceServer simRosRemoveModelServer;
-		static bool simRosRemoveModelService(coppeliasim_msgs_srvs::simRosRemoveModel::Request &req,coppeliasim_msgs_srvs::simRosRemoveModel::Response &res);
+		static bool simRosRemoveModelService(vrep_common::simRosRemoveModel::Request &req,vrep_common::simRosRemoveModel::Response &res);
 
 		static ros::ServiceServer simRosRemoveUIServer;
-		static bool simRosRemoveUIService(coppeliasim_msgs_srvs::simRosRemoveUI::Request &req,coppeliasim_msgs_srvs::simRosRemoveUI::Response &res);
+		static bool simRosRemoveUIService(vrep_common::simRosRemoveUI::Request &req,vrep_common::simRosRemoveUI::Response &res);
 
 		static ros::ServiceServer simRosSetArrayParameterServer;
-		static bool simRosSetArrayParameterService(coppeliasim_msgs_srvs::simRosSetArrayParameter::Request &req,coppeliasim_msgs_srvs::simRosSetArrayParameter::Response &res);
+		static bool simRosSetArrayParameterService(vrep_common::simRosSetArrayParameter::Request &req,vrep_common::simRosSetArrayParameter::Response &res);
 
 		static ros::ServiceServer simRosSetBooleanParameterServer;
-		static bool simRosSetBooleanParameterService(coppeliasim_msgs_srvs::simRosSetBooleanParameter::Request &req,coppeliasim_msgs_srvs::simRosSetBooleanParameter::Response &res);
+		static bool simRosSetBooleanParameterService(vrep_common::simRosSetBooleanParameter::Request &req,vrep_common::simRosSetBooleanParameter::Response &res);
 
 		static ros::ServiceServer simRosSetFloatingParameterServer;
-		static bool simRosSetFloatingParameterService(coppeliasim_msgs_srvs::simRosSetFloatingParameter::Request &req,coppeliasim_msgs_srvs::simRosSetFloatingParameter::Response &res);
+		static bool simRosSetFloatingParameterService(vrep_common::simRosSetFloatingParameter::Request &req,vrep_common::simRosSetFloatingParameter::Response &res);
 
 		static ros::ServiceServer simRosSetFloatSignalServer;
-		static bool simRosSetFloatSignalService(coppeliasim_msgs_srvs::simRosSetFloatSignal::Request &req,coppeliasim_msgs_srvs::simRosSetFloatSignal::Response &res);
+		static bool simRosSetFloatSignalService(vrep_common::simRosSetFloatSignal::Request &req,vrep_common::simRosSetFloatSignal::Response &res);
 
 		static ros::ServiceServer simRosSetIntegerParameterServer;
-		static bool simRosSetIntegerParameterService(coppeliasim_msgs_srvs::simRosSetIntegerParameter::Request &req,coppeliasim_msgs_srvs::simRosSetIntegerParameter::Response &res);
+		static bool simRosSetIntegerParameterService(vrep_common::simRosSetIntegerParameter::Request &req,vrep_common::simRosSetIntegerParameter::Response &res);
 
 		static ros::ServiceServer simRosSetIntegerSignalServer;
-		static bool simRosSetIntegerSignalService(coppeliasim_msgs_srvs::simRosSetIntegerSignal::Request &req,coppeliasim_msgs_srvs::simRosSetIntegerSignal::Response &res);
+		static bool simRosSetIntegerSignalService(vrep_common::simRosSetIntegerSignal::Request &req,vrep_common::simRosSetIntegerSignal::Response &res);
 
 		static ros::ServiceServer simRosSetJointForceServer;
-		static bool simRosSetJointForceService(coppeliasim_msgs_srvs::simRosSetJointForce::Request &req,coppeliasim_msgs_srvs::simRosSetJointForce::Response &res);
+		static bool simRosSetJointForceService(vrep_common::simRosSetJointForce::Request &req,vrep_common::simRosSetJointForce::Response &res);
 
 		static ros::ServiceServer simRosSetJointPositionServer;
-		static bool simRosSetJointPositionService(coppeliasim_msgs_srvs::simRosSetJointPosition::Request &req,coppeliasim_msgs_srvs::simRosSetJointPosition::Response &res);
+		static bool simRosSetJointPositionService(vrep_common::simRosSetJointPosition::Request &req,vrep_common::simRosSetJointPosition::Response &res);
 
 		static ros::ServiceServer simRosSetJointTargetPositionServer;
-		static bool simRosSetJointTargetPositionService(coppeliasim_msgs_srvs::simRosSetJointTargetPosition::Request &req,coppeliasim_msgs_srvs::simRosSetJointTargetPosition::Response &res);
+		static bool simRosSetJointTargetPositionService(vrep_common::simRosSetJointTargetPosition::Request &req,vrep_common::simRosSetJointTargetPosition::Response &res);
 
 		static ros::ServiceServer simRosSetJointTargetVelocityServer;
-		static bool simRosSetJointTargetVelocityService(coppeliasim_msgs_srvs::simRosSetJointTargetVelocity::Request &req,coppeliasim_msgs_srvs::simRosSetJointTargetVelocity::Response &res);
+		static bool simRosSetJointTargetVelocityService(vrep_common::simRosSetJointTargetVelocity::Request &req,vrep_common::simRosSetJointTargetVelocity::Response &res);
 
 		static ros::ServiceServer simRosSetModelPropertyServer;
-		static bool simRosSetModelPropertyService(coppeliasim_msgs_srvs::simRosSetModelProperty::Request &req,coppeliasim_msgs_srvs::simRosSetModelProperty::Response &res);
+		static bool simRosSetModelPropertyService(vrep_common::simRosSetModelProperty::Request &req,vrep_common::simRosSetModelProperty::Response &res);
 
 		static ros::ServiceServer simRosSetObjectFloatParameterServer;
-		static bool simRosSetObjectFloatParameterService(coppeliasim_msgs_srvs::simRosSetObjectFloatParameter::Request &req,coppeliasim_msgs_srvs::simRosSetObjectFloatParameter::Response &res);
+		static bool simRosSetObjectFloatParameterService(vrep_common::simRosSetObjectFloatParameter::Request &req,vrep_common::simRosSetObjectFloatParameter::Response &res);
 
 		static ros::ServiceServer simRosSetObjectIntParameterServer;
-		static bool simRosSetObjectIntParameterService(coppeliasim_msgs_srvs::simRosSetObjectIntParameter::Request &req,coppeliasim_msgs_srvs::simRosSetObjectIntParameter::Response &res);
+		static bool simRosSetObjectIntParameterService(vrep_common::simRosSetObjectIntParameter::Request &req,vrep_common::simRosSetObjectIntParameter::Response &res);
 
 		static ros::ServiceServer simRosSetObjectPoseServer;
-		static bool simRosSetObjectPoseService(coppeliasim_msgs_srvs::simRosSetObjectPose::Request &req,coppeliasim_msgs_srvs::simRosSetObjectPose::Response &res);
+		static bool simRosSetObjectPoseService(vrep_common::simRosSetObjectPose::Request &req,vrep_common::simRosSetObjectPose::Response &res);
 
 		static ros::ServiceServer simRosSetObjectParentServer;
-		static bool simRosSetObjectParentService(coppeliasim_msgs_srvs::simRosSetObjectParent::Request &req,coppeliasim_msgs_srvs::simRosSetObjectParent::Response &res);
+		static bool simRosSetObjectParentService(vrep_common::simRosSetObjectParent::Request &req,vrep_common::simRosSetObjectParent::Response &res);
 
 		static ros::ServiceServer simRosSetObjectPositionServer;
-		static bool simRosSetObjectPositionService(coppeliasim_msgs_srvs::simRosSetObjectPosition::Request &req,coppeliasim_msgs_srvs::simRosSetObjectPosition::Response &res);
+		static bool simRosSetObjectPositionService(vrep_common::simRosSetObjectPosition::Request &req,vrep_common::simRosSetObjectPosition::Response &res);
 
 		static ros::ServiceServer simRosSetObjectSelectionServer;
-		static bool simRosSetObjectSelectionService(coppeliasim_msgs_srvs::simRosSetObjectSelection::Request &req,coppeliasim_msgs_srvs::simRosSetObjectSelection::Response &res);
+		static bool simRosSetObjectSelectionService(vrep_common::simRosSetObjectSelection::Request &req,vrep_common::simRosSetObjectSelection::Response &res);
 
 		static ros::ServiceServer simRosGetInfoServer;
-		static bool simRosGetInfoService(coppeliasim_msgs_srvs::simRosGetInfo::Request &req,coppeliasim_msgs_srvs::simRosGetInfo::Response &res);
+		static bool simRosGetInfoService(vrep_common::simRosGetInfo::Request &req,vrep_common::simRosGetInfo::Response &res);
 
 		static ros::ServiceServer simRosSetSphericalJointMatrixServer;
-		static bool simRosSetSphericalJointMatrixService(coppeliasim_msgs_srvs::simRosSetSphericalJointMatrix::Request &req,coppeliasim_msgs_srvs::simRosSetSphericalJointMatrix::Response &res);
+		static bool simRosSetSphericalJointMatrixService(vrep_common::simRosSetSphericalJointMatrix::Request &req,vrep_common::simRosSetSphericalJointMatrix::Response &res);
 
 		static ros::ServiceServer simRosSetStringSignalServer;
-		static bool simRosSetStringSignalService(coppeliasim_msgs_srvs::simRosSetStringSignal::Request &req,coppeliasim_msgs_srvs::simRosSetStringSignal::Response &res);
+		static bool simRosSetStringSignalService(vrep_common::simRosSetStringSignal::Request &req,vrep_common::simRosSetStringSignal::Response &res);
 
 		static ros::ServiceServer simRosAppendStringSignalServer;
-		static bool simRosAppendStringSignalService(coppeliasim_msgs_srvs::simRosAppendStringSignal::Request &req,coppeliasim_msgs_srvs::simRosAppendStringSignal::Response &res);
+		static bool simRosAppendStringSignalService(vrep_common::simRosAppendStringSignal::Request &req,vrep_common::simRosAppendStringSignal::Response &res);
 
 		static ros::ServiceServer simRosSetUIButtonLabelServer;
-		static bool simRosSetUIButtonLabelService(coppeliasim_msgs_srvs::simRosSetUIButtonLabel::Request &req,coppeliasim_msgs_srvs::simRosSetUIButtonLabel::Response &res);
+		static bool simRosSetUIButtonLabelService(vrep_common::simRosSetUIButtonLabel::Request &req,vrep_common::simRosSetUIButtonLabel::Response &res);
 
 		static ros::ServiceServer simRosSetUIButtonPropertyServer;
-		static bool simRosSetUIButtonPropertyService(coppeliasim_msgs_srvs::simRosSetUIButtonProperty::Request &req,coppeliasim_msgs_srvs::simRosSetUIButtonProperty::Response &res);
+		static bool simRosSetUIButtonPropertyService(vrep_common::simRosSetUIButtonProperty::Request &req,vrep_common::simRosSetUIButtonProperty::Response &res);
 
 		static ros::ServiceServer simRosSetUISliderServer;
-		static bool simRosSetUISliderService(coppeliasim_msgs_srvs::simRosSetUISlider::Request &req,coppeliasim_msgs_srvs::simRosSetUISlider::Response &res);
+		static bool simRosSetUISliderService(vrep_common::simRosSetUISlider::Request &req,vrep_common::simRosSetUISlider::Response &res);
 
 		static ros::ServiceServer simRosSetVisionSensorImageServer;
-		static bool simRosSetVisionSensorImageService(coppeliasim_msgs_srvs::simRosSetVisionSensorImage::Request &req,coppeliasim_msgs_srvs::simRosSetVisionSensorImage::Response &res);
+		static bool simRosSetVisionSensorImageService(vrep_common::simRosSetVisionSensorImage::Request &req,vrep_common::simRosSetVisionSensorImage::Response &res);
 
 		static ros::ServiceServer simRosStartSimulationServer;
-		static bool simRosStartSimulationService(coppeliasim_msgs_srvs::simRosStartSimulation::Request &req,coppeliasim_msgs_srvs::simRosStartSimulation::Response &res);
+		static bool simRosStartSimulationService(vrep_common::simRosStartSimulation::Request &req,vrep_common::simRosStartSimulation::Response &res);
 
 		static ros::ServiceServer simRosStopSimulationServer;
-		static bool simRosStopSimulationService(coppeliasim_msgs_srvs::simRosStopSimulation::Request &req,coppeliasim_msgs_srvs::simRosStopSimulation::Response &res);
+		static bool simRosStopSimulationService(vrep_common::simRosStopSimulation::Request &req,vrep_common::simRosStopSimulation::Response &res);
 
 		static ros::ServiceServer simRosSynchronousServer;
-		static bool simRosSynchronousService(coppeliasim_msgs_srvs::simRosSynchronous::Request &req,coppeliasim_msgs_srvs::simRosSynchronous::Response &res);
+		static bool simRosSynchronousService(vrep_common::simRosSynchronous::Request &req,vrep_common::simRosSynchronous::Response &res);
 
 		static ros::ServiceServer simRosSynchronousTriggerServer;
-		static bool simRosSynchronousTriggerService(coppeliasim_msgs_srvs::simRosSynchronousTrigger::Request &req,coppeliasim_msgs_srvs::simRosSynchronousTrigger::Response &res);
+		static bool simRosSynchronousTriggerService(vrep_common::simRosSynchronousTrigger::Request &req,vrep_common::simRosSynchronousTrigger::Response &res);
 
 		static ros::ServiceServer simRosTransferFileServer;
-		static bool simRosTransferFileService(coppeliasim_msgs_srvs::simRosTransferFile::Request &req,coppeliasim_msgs_srvs::simRosTransferFile::Response &res);
+		static bool simRosTransferFileService(vrep_common::simRosTransferFile::Request &req,vrep_common::simRosTransferFile::Response &res);
 
 		static ros::ServiceServer simRosEnablePublisherServer;
-		static bool simRosEnablePublisherService(coppeliasim_msgs_srvs::simRosEnablePublisher::Request &req,coppeliasim_msgs_srvs::simRosEnablePublisher::Response &res);
+		static bool simRosEnablePublisherService(vrep_common::simRosEnablePublisher::Request &req,vrep_common::simRosEnablePublisher::Response &res);
 
 		static ros::ServiceServer simRosDisablePublisherServer;
-		static bool simRosDisablePublisherService(coppeliasim_msgs_srvs::simRosDisablePublisher::Request &req,coppeliasim_msgs_srvs::simRosDisablePublisher::Response &res);
+		static bool simRosDisablePublisherService(vrep_common::simRosDisablePublisher::Request &req,vrep_common::simRosDisablePublisher::Response &res);
 
 //		static ros::ServiceServer simRosGetObjectQuaternionServer;
-//		static bool simRosGetObjectQuaternionService(coppeliasim_msgs_srvs::simRosGetObjectQuaternion::Request &req,coppeliasim_msgs_srvs::simRosGetObjectQuaternion::Response &res);
+//		static bool simRosGetObjectQuaternionService(vrep_common::simRosGetObjectQuaternion::Request &req,vrep_common::simRosGetObjectQuaternion::Response &res);
 
 		static ros::ServiceServer simRosSetObjectQuaternionServer;
-		static bool simRosSetObjectQuaternionService(coppeliasim_msgs_srvs::simRosSetObjectQuaternion::Request &req,coppeliasim_msgs_srvs::simRosSetObjectQuaternion::Response &res);
+		static bool simRosSetObjectQuaternionService(vrep_common::simRosSetObjectQuaternion::Request &req,vrep_common::simRosSetObjectQuaternion::Response &res);
 
 		static ros::ServiceServer simRosEnableSubscriberServer;
-		static bool simRosEnableSubscriberService(coppeliasim_msgs_srvs::simRosEnableSubscriber::Request &req,coppeliasim_msgs_srvs::simRosEnableSubscriber::Response &res);
+		static bool simRosEnableSubscriberService(vrep_common::simRosEnableSubscriber::Request &req,vrep_common::simRosEnableSubscriber::Response &res);
 
 		static ros::ServiceServer simRosDisableSubscriberServer;
-		static bool simRosDisableSubscriberService(coppeliasim_msgs_srvs::simRosDisableSubscriber::Request &req,coppeliasim_msgs_srvs::simRosDisableSubscriber::Response &res);
+		static bool simRosDisableSubscriberService(vrep_common::simRosDisableSubscriber::Request &req,vrep_common::simRosDisableSubscriber::Response &res);
 
 		static ros::ServiceServer simRosSetJointStateServer;
-		static bool simRosSetJointStateService(coppeliasim_msgs_srvs::simRosSetJointState::Request &req,coppeliasim_msgs_srvs::simRosSetJointState::Response &res);
+		static bool simRosSetJointStateService(vrep_common::simRosSetJointState::Request &req,vrep_common::simRosSetJointState::Response &res);
 
 		static ros::ServiceServer simRosCreateDummyServer;
-		static bool simRosCreateDummyService(coppeliasim_msgs_srvs::simRosCreateDummy::Request &req,coppeliasim_msgs_srvs::simRosCreateDummy::Response &res);
+		static bool simRosCreateDummyService(vrep_common::simRosCreateDummy::Request &req,vrep_common::simRosCreateDummy::Response &res);
 
 		static ros::ServiceServer simRosGetAndClearStringSignalServer;
-		static bool simRosGetAndClearStringSignalService(coppeliasim_msgs_srvs::simRosGetAndClearStringSignal::Request &req,coppeliasim_msgs_srvs::simRosGetAndClearStringSignal::Response &res);
+		static bool simRosGetAndClearStringSignalService(vrep_common::simRosGetAndClearStringSignal::Request &req,vrep_common::simRosGetAndClearStringSignal::Response &res);
 
 		static ros::ServiceServer simRosGetObjectGroupDataServer;
-		static bool simRosGetObjectGroupDataService(coppeliasim_msgs_srvs::simRosGetObjectGroupData::Request &req,coppeliasim_msgs_srvs::simRosGetObjectGroupData::Response &res);
+		static bool simRosGetObjectGroupDataService(vrep_common::simRosGetObjectGroupData::Request &req,vrep_common::simRosGetObjectGroupData::Response &res);
 
 		// static ros::ServiceServer simRosCallScriptFunctionServer;
-		// static bool simRosCallScriptFunctionService(coppeliasim_msgs_srvs::simRosCallScriptFunction::Request &req,coppeliasim_msgs_srvs::simRosCallScriptFunction::Response &res);
+		// static bool simRosCallScriptFunctionService(vrep_common::simRosCallScriptFunction::Request &req,vrep_common::simRosCallScriptFunction::Response &res);
 
 		static ros::ServiceServer simRosLoadModuleServer;
-		static bool simRosLoadModuleService(coppeliasim_msgs_srvs::simRosLoadModule::Request &req,coppeliasim_msgs_srvs::simRosLoadModule::Response &res);
+		static bool simRosLoadModuleService(vrep_common::simRosLoadModule::Request &req,vrep_common::simRosLoadModule::Response &res);
 
 		static ros::ServiceServer simRosUnloadModuleServer;
-		static bool simRosUnloadModuleService(coppeliasim_msgs_srvs::simRosUnloadModule::Request &req,coppeliasim_msgs_srvs::simRosUnloadModule::Response &res);
+		static bool simRosUnloadModuleService(vrep_common::simRosUnloadModule::Request &req,vrep_common::simRosUnloadModule::Response &res);
 
 
 };
